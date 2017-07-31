@@ -12,7 +12,14 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => 'SDCA - Connect',
+    'name_html' => 'SDCA - <span class="text-danger">Connect</span>',
+
+    'organization_name' => 'Saint Dominic College of Asia',
+    'organization_short_name' => 'St. Dominic',
+    
+    'author_link' => 'http://ervinne13.github.io',
+    'author' => 'Ervinnne Sodusta',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,7 +183,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        App\Providers\RepositoryProvider::class,
+        App\Providers\ViewComposerServiceProvider::class,
+        
     ],
 
     /*

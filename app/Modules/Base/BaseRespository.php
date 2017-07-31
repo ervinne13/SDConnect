@@ -2,32 +2,38 @@
 
 namespace App\Modules\Base;
 
+use App\Modules\System\User\UserAccount;
+
 /**
  *
+ * TODO: Datatables
+ * 
  * @author ervinne
  */
 interface BaseRespository
 {
 
-    public function create(array $attributes);
+    public function actingAs(UserAccount $userAccount);
 
-    public function update(array $attributes, int $id);
+    public function returnsQueryObject(bool $willReturnQueryObject = true);
 
-    public function all($columns = array( '*' ), string $orderBy = 'id', string $sortBy = 'desc');
+    public function willTransformModel(bool $willTransformModel = true);
 
-    public function find(int $id);
+    public function eagerLoadsRelationships(array $relatedModels);
 
-    public function findOneOrFail(int $id);
+    public function create($attributesOrModel);
 
-    public function findBy(array $data);
+    public function update($attributesOrModel, $id);
 
-    public function findOneBy(array $data);
+    public function all($columns = array('*'), string $orderBy = 'id', string $sortBy = 'desc');
 
-    public function findOneByOrFail(array $data);
+    public function delete($id);
 
-    public function getPaginatedResults(int $paginated = 25, string $orderBy = 'id', string $sortBy = 'desc');
+    public function find($id);
 
-    public function paginateArrayResults(array $data, int $perPage = 50);
+    public function findOrFail($id);
 
-    public function delete(int $id);
+    public function getPaginatedRecords(int $pageSize = 15, string $orderBy = 'id', string $sortBy = 'desc');
+
+    public function getPaginatedRecordsFromQuery($query, int $pageSize = 15, string $orderBy = 'id', string $sortBy = 'desc');
 }

@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGroupTaskTable extends Migration {
+class CreateGroupTaskTable extends Migration
+{
 
     const TABLE_NAME = 'group_task';
 
@@ -13,18 +14,19 @@ class CreateGroupTaskTable extends Migration {
      *
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         // <editor-fold defaultstate="collapsed" desc="Pessimistic Validation">
-        if (Schema::hasTable(self::TABLE_NAME)) {
+        if ( Schema::hasTable(self::TABLE_NAME) ) {
             return;
         }
         // </editor-fold>
 
         Schema::create(self::TABLE_NAME, function(Blueprint $table) {
             $table->string('group_code', 30);
-            $table->bigInteger('task_id');
+            $table->bigInteger('task_id')->unsigned();
 
-            $table->primary(['group_code', 'task_id']);
+            $table->primary([ 'group_code', 'task_id' ]);
             $table->foreign('group_code')
                     ->references('code')->on('group')
                     ->onDelete('cascade')
@@ -33,6 +35,9 @@ class CreateGroupTaskTable extends Migration {
                     ->references('id')->on('task')
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
+
+            $table->index('group_code');
+            $table->index('task_id');
         });
     }
 
@@ -41,9 +46,10 @@ class CreateGroupTaskTable extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         // <editor-fold defaultstate="collapsed" desc="Pessimistic Validation">
-        if (!Schema::hasTable(self::TABLE_NAME)) {
+        if ( !Schema::hasTable(self::TABLE_NAME) ) {
             return;
         }
         // </editor-fold>
