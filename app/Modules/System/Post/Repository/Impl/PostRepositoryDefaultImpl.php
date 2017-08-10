@@ -6,6 +6,7 @@ use App\Modules\Base\BaseTransformer;
 use App\Modules\Base\Impl\BasicBaseRepository;
 use App\Modules\System\Post\Post;
 use App\Modules\System\Post\Repository\PostRepository;
+use App\Modules\System\User\UserAccount;
 
 /**
  * Description of PostRepositoryDefaultImpl
@@ -20,9 +21,10 @@ class PostRepositoryDefaultImpl extends BasicBaseRepository implements PostRepos
         parent::__construct(Post::class, $transformer);
     }
 
-    public function getPostsByDateRange($startDate, $endDate, $group = null)
+    public function getPostsByDateRange(UserAccount $accessibleByUser, $startDate, $endDate, $group = null)
     {
-        $query = Post::where("date_time_from", ">=", $startDate)
+        $query = Post::AccessibleByUsername($accessibleByUser->getUsername())
+            ->where("date_time_from", ">=", $startDate)
             ->where("date_time_to", "<=", $endDate)
             ->with('author')
             ->with('group');

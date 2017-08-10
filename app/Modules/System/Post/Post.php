@@ -41,6 +41,18 @@ class Post extends Model
     // </editor-fold>
 
     /**/
+    // <editor-fold defaultstate="collapsed" desc="Scopes">
+
+    public function scopeAccessibleByUsername($query, $username)
+    {
+        return $query->select("post.*")
+                ->join("group_member", "group_member.group_code", "=", "post.group_code")
+                ->where("user_account_username", $username);
+    }
+
+    // </editor-fold>
+
+    /**/
     // <editor-fold defaultstate="collapsed" desc="Encapsulation">
 
     public function setGroup(Group $group)

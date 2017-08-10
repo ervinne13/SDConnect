@@ -11,8 +11,8 @@ use App\Modules\System\User\UserAccount;
  * @author ervinne
  */
 interface GroupRepository extends BaseRespository
-{    
-    
+{
+
     function getTypes(): array;
 
     function allByUserAccount(UserAccount $user);
@@ -21,5 +21,9 @@ interface GroupRepository extends BaseRespository
 
     function joinGroup(Group $group, $username);
 
+    function joinToAllSystemGeneratedGroups($username);
+
     function getMembers(Group $group);
+
+    function isUserMemberOfGroup(Group $group, $username);
 }

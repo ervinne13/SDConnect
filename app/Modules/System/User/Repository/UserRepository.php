@@ -11,8 +11,8 @@ use App\Modules\System\User\UserAccount;
  * @author ervinne
  */
 interface UserRepository extends BaseRespository
-{
-
+{    
+    
     function assignRole(UserAccount $user, Role $role);
 
     function unassignRoles(UserAccount $user, array $roleCodes);

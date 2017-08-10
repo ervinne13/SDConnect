@@ -5,8 +5,8 @@
     app.baseUrl = '{{url("/")}}';
     app.csrf = '{{csrf_token()}}';
 
-    app.session.currentUser = JSON.parse('{!! Auth::user() !!}');
-    app.session.roleCodes = [];    
+    app.session.currentUser = JSON.parse('{!! Auth::user() || "{}" !!}');
+    app.session.roleCodes = [];
 
 //    app.session.currentUser.roles.forEach(role => {
 //        session.roleCodes.push(role.code);

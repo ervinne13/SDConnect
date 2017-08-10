@@ -27,48 +27,20 @@ class RepositoryProvider extends ServiceProvider
      */
     public function register()
     {
-        if ( App::environment('local') ) {
-            $this->registerLocal();
-        } else if ( App::environment('production') ) {
-            $this->registerProduction();
-        }
-    }
+        $userAccountTransformer = new UserAccountTransformer();
+        $groupTransformer       = new GroupTransformer($userAccountTransformer);
+        $groupRepo              = new GroupRepositoryDefaultImpl($groupTransformer);
 
-    protected function registerLocal()
-    {
-        $this->app->bind(UserRepository::class, function() {
+        $this->app->bind(UserRepository::class, function() use ($groupRepo) {
             $transformer = new UserAccountTransformer();
-            return new UserRepositoryDefaultImpl($transformer);
+            return new UserRepositoryDefaultImpl($groupRepo, $transformer);
+        });
+
+        $this->app->bind(GroupRepository::class, function() use ($groupRepo) {
+            return $groupRepo;
         });
 
         $this->app->bind(RoleRepository::class, RoleRepositoryDefaultImpl::class);
-
-        $this->app->bind(GroupRepository::class, function() {
-            $userAccountTransformer = new UserAccountTransformer();
-            $groupTransformer       = new GroupTransformer($userAccountTransformer);
-//            return new GroupRepositoryDemoImpl($groupTransformer);
-            return new GroupRepositoryDefaultImpl($groupTransformer);
-        });
-
-        $this->app->bind(PostRepository::class, PostRepositoryDefaultImpl::class);
-        $this->app->bind(TaskRepository::class, TaskRepositoryDefaultImpl::class);
-    }
-
-    protected function registerProduction()
-    {
-        $this->app->bind(UserRepository::class, function() {
-            $transformer = new UserAccountTransformer();
-            return new UserRepositoryDefaultImpl($transformer);
-        });
-
-        $this->app->bind(RoleRepository::class, RoleRepositoryDefaultImpl::class);
-
-        $this->app->bind(GroupRepository::class, function() {
-            $userAccountTransformer = new UserAccountTransformer();
-            $groupTransformer       = new GroupTransformer($userAccountTransformer);
-            return new GroupRepositoryDefaultImpl($groupTransformer);
-        });
-
         $this->app->bind(PostRepository::class, PostRepositoryDefaultImpl::class);
         $this->app->bind(TaskRepository::class, TaskRepositoryDefaultImpl::class);
     }

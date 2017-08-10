@@ -87,4 +87,18 @@ class GroupRepositoryDefaultImpl extends BasicBaseRepository implements GroupRep
         $group->members()->attach($username);
     }
 
+    public function joinToAllSystemGeneratedGroups($username)
+    {
+        $groups = Group::SystemGenerated()->get();
+        foreach ( $groups AS $group ) {
+            $this->joinGroup($group, $username);
+        }
+    }
+
+    public function isUserMemberOfGroup(Group $group, $username)
+    {
+        $existingUserCount = $group->members()->where("user_account_username", $username)->count();
+        return $existingUserCount >= 1;
+    }
+
 }
