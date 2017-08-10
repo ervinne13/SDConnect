@@ -1,4 +1,5 @@
 
+@section('modals')
 <div  id="calendar-event-modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content b-a-0">
@@ -10,3 +11,4 @@
         </div>
     </div>
 </div>
+@append

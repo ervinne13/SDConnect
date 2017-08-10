@@ -3,6 +3,7 @@
 namespace App\Modules\System\Post\Repository;
 
 use App\Modules\Base\BaseRespository;
+use App\Modules\System\User\UserAccount;
 
 /**
  *
@@ -11,7 +12,7 @@ use App\Modules\Base\BaseRespository;
 interface PostRepository extends BaseRespository
 {
 
-    public function getPostsByDateRange($startDate, $endDate, $group = null);
+    public function getPostsByDateRange(UserAccount $accessibleByUser, $startDate, $endDate, $group = null);
 
     public function getPaginatedFromGroup(string $groupCode);
 }

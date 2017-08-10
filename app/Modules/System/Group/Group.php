@@ -33,6 +33,11 @@ class Group extends Model
         return $query->where('code', $code);
     }
 
+    public function scopeSystemGenerated($query)
+    {
+        return $query->where("is_system_generated", true);
+    }
+
     // </editor-fold>
 
     /**/

@@ -50,7 +50,13 @@
 
                 <li class="list-group-item b-a-0 p-x-0 b-b-0 p-y-0 r-a-0">
                     <a class="list-group-item text-center b-b-0 b-r-0 b-l-0 b-r-b-r-0 b-r-b-l-0" href="{{url("group")}}">
-                        <i class="fa fa-users"></i> Manage / See All Groups
+                        <i class="fa fa-users"></i> Manage / See All My Groups
+                    </a>
+                </li>
+
+                <li class="list-group-item b-a-0 p-x-0 b-b-0 p-y-0 r-a-0">
+                    <a class="action-trigger-join-group list-group-item text-center b-b-0 b-r-0 b-l-0 b-r-b-r-0 b-r-b-l-0" href="javascript:void(0)">
+                        <i class="fa fa-user-plus"></i> Join Group
                     </a>
                 </li>
 
@@ -66,3 +72,5 @@
     </div>
 
 </li>
+
+@include('layouts.parts.navbar.join-group-modal')

@@ -38,6 +38,27 @@ class GroupController extends Controller
         ]);
     }
 
+    public function joinGroup($groupCode)
+    {
+        try {
+            $group = $this->groupRepo->find($groupCode);
+
+            if ( !$group ) {
+                return response("{$groupCode} not found", 404);
+            }
+
+            if ( $this->groupRepo->isUserMemberOfGroup($group, Auth::user()->getUsername()) ) {
+                return response("You are already a member of the group: {$group->getDisplayName()}", 402);
+            }
+
+            $this->groupRepo->joinGroup($group, Auth::user()->getUsername());
+
+            return $group;
+        } catch ( Exception $ex ) {
+            return response_ajax_error($ex);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

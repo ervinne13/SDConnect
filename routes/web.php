@@ -24,11 +24,13 @@ Route::get('test', 'TestController@test');
 Route::get('test/chart', 'TestController@chart');
 
 Route::group(['namespace' => 'Modules\System', 'middleware' => ['auth']], function () {
-    Route::get('user/datatable', 'UsersController@datatable');
+    Route::get('user/datatable', 'UsersController@datatable');    
     Route::resource('user', 'UserController');
 
-    Route::resource('group', 'GroupController');
     Route::get('user/{username}/group', 'UserGroupController@index');
+    
+    Route::post('group/{groupCode}/join', 'GroupController@joinGroup');
+    Route::resource('group', 'GroupController');
 
     Route::get('post/group/{groupCode}', 'PostController@listPostByGroup');
     Route::get('post/group/{groupCode}/seed', 'PostController@seedPosts');

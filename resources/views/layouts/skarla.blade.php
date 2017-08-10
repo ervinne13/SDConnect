@@ -43,9 +43,7 @@
             var baseURL = '{{url("/")}}';
         </script>        
 
-        @if (Auth::check())
         @include('layouts.parts.session-js-data')
-        @endif
 
     </head>
     <!-- END Head -->
@@ -91,6 +89,8 @@
 
         </div>      
 
+        @yield('modals')
+
         <script src="{{skarla_vendor_url("js/jquery.min.js")}}"></script>                      
 
         <!-- Bower Libraries Scripts -->        
@@ -118,7 +118,7 @@
             });
         </script>
 
-        @yield('js')
+        @yield('js')               
 
     </body>
 </html>

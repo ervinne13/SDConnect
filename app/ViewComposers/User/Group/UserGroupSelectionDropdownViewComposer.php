@@ -30,11 +30,11 @@ class UserGroupSelectionDropdownViewComposer
         }
 
         if ( Auth::check() ) {
-            $userGroups = $this->groupRepository->allByUserAccount(Auth::user());            
+            $userGroups = $this->groupRepository->accessibleByUserAccount(Auth::user());
         } else {
-            $userGroups = [];            
-        }        
-        
+            $userGroups = [];
+        }
+
         $view->with("currentGroup", $currentGroup);
         $view->with("userGroups", $userGroups);
     }
