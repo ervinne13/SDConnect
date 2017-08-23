@@ -1,6 +1,11 @@
 (function () {
 
+    let taskListView;
+
     $(document).ready(function () {
+
+        taskListView = new TaskListView();
+        taskListView.bindElementAsContainer('#task-item-editor-container');
 
         initializeEvents();
 
