@@ -16,9 +16,8 @@
     }
 
     function addTaskItem() {
-
-        $('#task-item-editor-container').html('');
-
+        taskListView.addBlankTask();
+        taskListView.displayLatest();
     }
 
 })();

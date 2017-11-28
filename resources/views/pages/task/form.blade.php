@@ -9,7 +9,7 @@
 
 </script>
 
-@include('pages.task.templates.multiple-choice-task-item-template');
+@include('pages.task.templates.task-view');
 
 <script src="{{url("js/views/task/TaskView.js")}}"></script>
 <script src="{{url("js/views/task/TaskListView.js")}}"></script>

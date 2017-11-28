@@ -4,6 +4,8 @@ class TaskView {
     constructor() {
         this.typeCode = null;
         this.typeName = null;
+
+        this._viewTemplate = _.template(document.querySelector('#task-view-template').innerHTML);
     }
 
     setTypeCode(typeCode) {
@@ -13,6 +15,10 @@ class TaskView {
 
         this.typeCode = typeCode;
         this.typeName = TaskView.TYPE_CODES[typeCode];
+    }
+
+    createView() {
+        return this._viewTemplate({task: this});
     }
 
 }
