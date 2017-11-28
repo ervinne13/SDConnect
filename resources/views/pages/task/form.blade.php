@@ -11,8 +11,8 @@
 
 @include('pages.task.templates.multiple-choice-task-item-template');
 
-<script src="{{url("js/vivews/task/TaskView.js")}}"></script>
-<script src="{{url("js/vivews/task/TaskListView.js")}}"></script>
+<script src="{{url("js/views/task/TaskView.js")}}"></script>
+<script src="{{url("js/views/task/TaskListView.js")}}"></script>
 
 <script src="{{url("js/pages/task/form.js")}}"></script>
 @endsection

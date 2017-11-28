@@ -5,8 +5,6 @@ class TaskListView {
         this.currentlyActiveTaskItem = null;
         this.taskItems = [];
 
-        this.
-
     }
 
     displayTask(taskView) {
