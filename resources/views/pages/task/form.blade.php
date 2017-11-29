@@ -5,7 +5,8 @@
 @section('js')
 <script>
 
-    let task = {!! $task !!};
+    let task = {!! $task !!}
+    ;
 
 </script>
 
@@ -26,44 +27,24 @@
                     Task Items (Write questions or activities that the student must accoplish)
                 </div>
                 <div class="panel-body">
-                    
-                    <div id="task-item-editor-container">
 
-                        <div class="v-a-m">        
-
-                            <div class="media media-auto">
-                                <div class="media-left">
-                                    <i class="fa fa-question-circle-o fa-5x"></i>
-                                </div>
-                                <div class="media-body p-l-2">
-                                    <span class="media-heading text-gray-darker">About Tasks & Tasks Items</span>                
-                                    <span class="media-heading">
-                                        <p>
-                                            <strong>Tasks</strong> can refer to assignments, quizzes, exams, or anything that you want your students to fulfill.
-                                        </p>
-                                        <p>
-                                            Each task contains one or more <strong>Task Items</strong> which refer to the things that should be answered or accomplished in a task.
-                                        </p>
-
-                                        <p>
-                                            To add a new task item in this task, click the button below.
-                                        </p>
-
-                                        <br>
-                                        <div class="text-center">
-                                            <button id="action-add-task-item" class="btn btn-success">
-                                                <i class="fa fa-plus"></i>
-                                                Add a new Task Item Now
-                                            </button>
-                                        </div>
-
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- End Media -->
-
+                    <div class="col-sm-2 m-r-0">
+                        <div id="task-item-list-container" class="list-group shadow-box">
+                            <a href="javascript: void(0)" class="list-group-item active">
+                                <label class="badge badge-primary">1</label>
+                                Item
+                                <div class="clearfix"></div>
+                            </a>
+                            <a href="javascript: void(0)" class="list-group-item">
+                                <label class="badge badge-primary">2</label> 
+                                <div class="clearfix"></div>
+                            </a>
                         </div>
                     </div>
+
+                    <div class="col-sm-10 m-l-0">
+                        @include('pages.task.partials.task-item-editor-container')
+                    </div>                    
 
                     <!-- End Container -->
                 </div>

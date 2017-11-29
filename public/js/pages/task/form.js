@@ -16,8 +16,8 @@
     }
 
     function addTaskItem() {
-        taskListView.addBlankTask();
-        taskListView.displayLatest();
+        taskListView.addBlankTaskItem();
+        taskListView.displayLatestTaskItem();
     }
 
 })();
