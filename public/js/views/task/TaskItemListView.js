@@ -12,7 +12,11 @@ class TaskItemListView {
     }
 
     initEvents() {
-        
+
+    }
+
+    updateListWithMap(taskItemMap) {
+        console.log(taskItemMap);
     }
 
 }

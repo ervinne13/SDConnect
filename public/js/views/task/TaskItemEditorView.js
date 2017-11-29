@@ -2,9 +2,9 @@ class TaskItemEditorView {
 
     constructor() {
         this.elContainer = null;
-        this.currentlyActiveTaskItem = null;
-        this.taskItems = [];
-        this.taskItemIndexMap = {};
+        this.taskItemMap = {};
+
+        this.lastTaskId = 0;
 
         this._taskItemViewTemplate = _.template(document.querySelector('#task-item-view-template').innerHTML);
         this._mcOptionTemplate = _.template(document.querySelector('#multiple-choice-option-template').innerHTML);
@@ -15,50 +15,47 @@ class TaskItemEditorView {
         };
 
         this.currentlyDisplayingTaskId = null;
+
+        //  callbacks
+        this.onTaskItemMapUpdatedCallback = null;
     }
 
     addBlankTaskItem() {
-        let latestTask = this.getLatestTask();
-        let latestId = latestTask ? latestTask.id + 1 : 1;
+        //  TODO move task id handling to TaskItemListView
+        let latestId = this.lastTaskId + 1;
 
-        this.addTaskItem({
+        let taskItem = {
             id: latestId,
             type_code: 'MC',
             points: 1,
             task_item_text: '',
             choices_json: [],
             correct_answer_free_field: ''
-        });
+        };
+
+        this.addTaskItem(taskItem);
+
+        return taskItem;
     }
 
     addTaskItem(taskItem) {
-        this.taskItems.push(taskItem);
-
         //  use map for linear lookup
-        this.taskItemIndexMap[taskItem.id] = this.taskItems.length - 1;
+        this.taskItemMap[taskItem.id] = taskItem;
 
-        //  add display on left nav
-    }
+        this.lastTaskId++;
 
-    getTaskItemById(taskId) {
-        let index = this.taskItemIndexMap[taskId];
-
-        if (index) {
-            return this.taskItems[index];
-        } else {
-            return null;
+        if (this.onTaskItemMapUpdatedCallback) {
+            this.onTaskItemMapUpdatedCallback(this.taskItemMap);
         }
     }
 
-    getLatestTask() {
-        return this.taskItems.length > 0 ? this.taskItems[this.taskItems.length - 1] : null;
+    getTaskItemById(taskId) {
+        return this.taskItemMap[taskId];
     }
 
-    displayLatestTaskItem() {
-        let task = this.getLatestTask();
-
-        this.currentlyDisplayingTaskId = task.id;
-        this.elContainer.innerHTML = this._taskItemViewTemplate(task);
+    displayTaskItem(taskItem) {
+        this.currentlyDisplayingTaskId = taskItem.id;
+        this.elContainer.innerHTML = this._taskItemViewTemplate(taskItem);
 
         this.updatedSpecialFields();
     }
@@ -86,7 +83,7 @@ class TaskItemEditorView {
 
         $(document).on('click', '#action-save-task-item', function () {
             let taskItem = this.getTaskItemDataFromFields();
-            saveTaskItem(taskItem);
+            this.saveTaskItem(taskItem);
         }.bind(this));
 
     }
@@ -103,10 +100,11 @@ class TaskItemEditorView {
     }
 
     saveTaskItem(taskItem) {
-        let existingTaskItem = this.getTaskItemById(taskItem.id);
-        
-        
-        
+        this.taskItemMap[taskItem.id] = taskItem;
+
+        if (this.onTaskItemMapUpdatedCallback) {
+            this.onTaskItemMapUpdatedCallback(this.taskItemMap);
+        }
     }
 
     getTaskItemDataFromFields() {
@@ -170,6 +168,10 @@ class TaskItemEditorView {
         } else {
             return answer;
         }
+    }
+
+    onTaskItemMapUpdated(callback) {
+        this.onTaskItemMapUpdatedCallback = callback;
     }
 
     static get TaskItemTypes() {

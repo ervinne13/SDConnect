@@ -10,6 +10,9 @@
         taskItemEditor = new TaskItemEditorView();
         taskItemEditor.bindElementAsContainer('#task-item-editor-container');
 
+        //  inter-component bindings
+        taskItemEditor.onTaskItemMapUpdated(taskItemListView.updateListWithMap);
+
         initializeEvents();
 
     });
@@ -18,9 +21,8 @@
         $('#action-add-task-item').click(addTaskItem);
     }
 
-    function addTaskItem() {
-        taskItemEditor.addBlankTaskItem();
-        taskItemEditor.displayLatestTaskItem();
+    function addTaskItem() {       
+        taskItemEditor.displayTaskItem(taskItemEditor.addBlankTaskItem());
     }
 
 })();
