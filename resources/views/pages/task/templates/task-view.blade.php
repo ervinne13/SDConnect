@@ -8,9 +8,9 @@
                 <div class="form-group">
                     <label class="control-label" for="input-type">Task Type</label>
                     <select name="type_code" id="input-type" required class="form-control select2-input">
-                        <% for (let code in TaskItemListView.TaskItemTypes) { %>
+                        <% for (let code in TaskItemEditorView.TaskItemTypes) { %>
                         <% let selected = type_code === code ? 'selected' : ''; %>
-                        <option value="<%= code %>" <%= selected %>><%= TaskItemListView.TaskItemTypes[code] %></option>
+                        <option value="<%= code %>" <%= selected %>><%= TaskItemEditorView.TaskItemTypes[code] %></option>
                         <% } %>
                     </select>
                 </div>

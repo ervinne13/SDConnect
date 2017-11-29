@@ -1,11 +1,14 @@
 (function () {
 
-    let taskListView;
+    let taskItemEditor, taskItemListView;
 
     $(document).ready(function () {
 
-        taskListView = new TaskItemListView();
-        taskListView.bindElementAsContainer('#task-item-editor-container');
+        taskItemListView = new TaskItemListView();
+        taskItemListView.bindElementAsContainer('#task-item-list-container');
+
+        taskItemEditor = new TaskItemEditorView();
+        taskItemEditor.bindElementAsContainer('#task-item-editor-container');
 
         initializeEvents();
 
@@ -16,8 +19,8 @@
     }
 
     function addTaskItem() {
-        taskListView.addBlankTaskItem();
-        taskListView.displayLatestTaskItem();
+        taskItemEditor.addBlankTaskItem();
+        taskItemEditor.displayLatestTaskItem();
     }
 
 })();
