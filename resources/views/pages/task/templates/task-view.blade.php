@@ -27,33 +27,11 @@
         <div class="form-group">
             <label class="control-label" for="input-task-item-text">Question / Instructions</label>
             <textarea name="task_item_text" id="input-task-item-text" class="form-control"><%= task_item_text %></textarea>
-        </div>
-
-        <div class="options" data-option-code="MC">
-            <div class="form-group">
-                <span>
-                    <label class="control-label" for="input-options">Options (Select the correct answer):</label>
-                    <button id="action-add-option" class="btn btn-sm btn-primary pull-right">
-                        <i class="fa fa-plus"></i>
-                        Add Option
-                    </button>
-                </span>
-
-                <ul id="choices-container" class="list-group shadow-box m-t-2">
-
-                </ul>
-            </div>     
-        </div>
-
-        <div class="options" data-option-code="TF">
-            <div class="form-group">
-                <label class="control-label" for="input-answer">Answer:</label>
-                <select name="correct_answer_free_field" id="input-answer" required class="form-control select2-input">
-                    <option value="true">True</option>
-                    <option value="false">False</option>
-                </select>
-            </div>
         </div>        
+
+        <div id="special-fields-container">
+
+        </div>
 
     </div>
 </script>
@@ -73,3 +51,34 @@
         </div>                        
     </li>
 </script>
+
+<script id="multiple-choice-task-special-fields-template" type="text/html">
+    <div class="options">
+        <div class="form-group">
+            <span>
+                <label class="control-label" for="input-options">Options (Select the correct answer):</label>
+                <button id="action-add-option" class="btn btn-sm btn-primary pull-right">
+                    <i class="fa fa-plus"></i>
+                    Add Option
+                </button>
+            </span>
+
+            <ul id="choices-container" class="list-group shadow-box m-t-2">
+
+            </ul>
+        </div>     
+    </div>
+</script>
+
+<script id="true-or-false-task-special-fields-template" type="text/html">
+    <div class="options">
+        <div class="form-group">
+            <label class="control-label" for="input-answer">Answer:</label>
+            <select name="correct_answer_free_field" id="input-answer" required class="form-control select2-input">
+                <option value="true">True</option>
+                <option value="false">False</option>
+            </select>
+        </div>
+    </div>
+</script>
+

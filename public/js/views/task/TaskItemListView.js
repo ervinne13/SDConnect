@@ -7,6 +7,11 @@ class TaskItemListView {
 
         this._taskItemViewTemplate = _.template(document.querySelector('#task-item-view-template').innerHTML);
         this._mcOptionTemplate = _.template(document.querySelector('#multiple-choice-option-template').innerHTML);
+        
+        this._specialFieldsTemplates = {
+            MC: _.template(document.querySelector('#multiple-choice-task-special-fields-template').innerHTML),
+            TF: _.template(document.querySelector('#true-or-false-task-special-fields-template').innerHTML),
+        };
     }
 
     addBlankTask() {
@@ -29,6 +34,8 @@ class TaskItemListView {
     displayLatest() {
         let task = this.getLatestTask();
         this.elContainer.innerHTML = this._taskItemViewTemplate(task);
+        
+        this.updatedSpecialFields();
     }
 
     bindElementAsContainer(elSelector) {
@@ -48,6 +55,17 @@ class TaskItemListView {
             $(this).closest('li.mc-option').remove();
         });
 
+        $(document).on('change', '#input-type', function() {
+            this.updatedSpecialFields();
+        }.bind(this));
+
+    }
+    
+    updatedSpecialFields() {
+        let taskItemType = document.querySelector('#input-type').value;
+        let container = document.querySelector('#special-fields-container');
+        
+        container.innerHTML = this._specialFieldsTemplates[taskItemType]();
     }
 
     addOption() {
