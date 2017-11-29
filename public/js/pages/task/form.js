@@ -4,7 +4,7 @@
 
     $(document).ready(function () {
 
-        taskListView = new TaskListView();
+        taskListView = new TaskItemListView();
         taskListView.bindElementAsContainer('#task-item-editor-container');
 
         initializeEvents();

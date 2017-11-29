@@ -11,8 +11,7 @@
 
 @include('pages.task.templates.task-view');
 
-<script src="{{url("js/views/task/TaskView.js")}}"></script>
-<script src="{{url("js/views/task/TaskListView.js")}}"></script>
+<script src="{{url("js/views/task/TaskItemListView.js")}}"></script>
 
 <script src="{{url("js/pages/task/form.js")}}"></script>
 @endsection
