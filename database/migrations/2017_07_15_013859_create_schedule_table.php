@@ -14,12 +14,6 @@ class CreateScheduleTable extends Migration {
      * @return void
      */
     public function up() {
-        // <editor-fold defaultstate="collapsed" desc="Pessimistic Validation">
-        if (Schema::hasTable(self::TABLE_NAME)) {
-            return;
-        }
-        // </editor-fold>
-
         Schema::create(self::TABLE_NAME, function(Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->string('teacher_username', 30);
@@ -42,13 +36,7 @@ class CreateScheduleTable extends Migration {
      * @return void
      */
     public function down() {
-        // <editor-fold defaultstate="collapsed" desc="Pessimistic Validation">
-        if (!Schema::hasTable(self::TABLE_NAME)) {
-            return;
-        }
-        // </editor-fold>
-
-        Schema::drop(self::TABLE_NAME);
+        Schema::dropIfExists(self::TABLE_NAME);
     }
 
 }

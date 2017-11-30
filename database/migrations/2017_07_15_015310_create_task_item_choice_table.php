@@ -16,20 +16,20 @@ class CreateTaskItemChoiceTable extends Migration
      */
     public function up()
     {
-        // <editor-fold defaultstate="collapsed" desc="Pessimistic Validation">
-        if ( Schema::hasTable(self::TABLE_NAME) ) {
-            return;
-        }
-        // </editor-fold>
-
         Schema::create(self::TABLE_NAME, function(Blueprint $table) {
-            $table->bigIncrements('id')->unsigned();
-            $table->bigInteger('task_item_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->bigInteger('task_id')->unsigned();
+            $table->integer('task_item_order')->unsigned();
             $table->string('answer_text', 120);
             $table->timestamps();
 
-            $table->foreign('task_item_id')
-                ->references('id')->on('task_item');
+//            $table->foreign('task_id')
+//                ->references('task_id')
+//                ->on('task_item');
+
+//            $table->foreign('task_item_order')
+//                ->references('order')
+//                ->on('task_item');
         });
     }
 
@@ -40,15 +40,9 @@ class CreateTaskItemChoiceTable extends Migration
      */
     public function down()
     {
-        // <editor-fold defaultstate="collapsed" desc="Pessimistic Validation">
-        if ( !Schema::hasTable(self::TABLE_NAME) ) {
-            return;
-        }
-        // </editor-fold>
-
         Schema::disableForeignKeyConstraints();
 
-        Schema::drop(self::TABLE_NAME);
+        Schema::dropIfExists(self::TABLE_NAME);
 
         Schema::disableForeignKeyConstraints();
     }
