@@ -1,11 +1,17 @@
 (function () {
 
-    let taskListView;
+    let taskItemEditor, taskItemListView;
 
     $(document).ready(function () {
 
-        taskListView = new TaskListView();
-        taskListView.bindElementAsContainer('#task-item-editor-container');
+        taskItemListView = new TaskItemListView();
+        taskItemListView.bindElementAsContainer('#task-item-list-container');
+
+        taskItemEditor = new TaskItemEditorView();
+        taskItemEditor.bindElementAsContainer('#task-item-editor-container');
+
+        //  inter-component bindings
+        taskItemEditor.onTaskItemMapUpdated(taskItemListView.updateListWithMap);
 
         initializeEvents();
 
@@ -15,10 +21,8 @@
         $('#action-add-task-item').click(addTaskItem);
     }
 
-    function addTaskItem() {
-
-        $('#task-item-editor-container').html('');
-
+    function addTaskItem() {       
+        taskItemEditor.displayTaskItem(taskItemEditor.addBlankTaskItem());
     }
 
 })();
