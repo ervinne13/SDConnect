@@ -10,6 +10,7 @@
 </script>
 
 @include('pages.task.templates.task-view');
+@include('pages.task.templates.task-item-list-item');
 
 <script src="{{url("js/views/task/TaskItemListView.js")}}"></script>
 <script src="{{url("js/views/task/TaskItemEditorView.js")}}"></script>
@@ -29,16 +30,7 @@
                 <div class="panel-body">
 
                     <div class="col-sm-2 m-r-0">
-                        <div id="task-item-list-container" class="list-group shadow-box">
-                            <a href="javascript: void(0)" class="list-group-item active">
-                                <label class="badge badge-primary">1</label>
-                                Item
-                                <div class="clearfix"></div>
-                            </a>
-                            <a href="javascript: void(0)" class="list-group-item">
-                                <label class="badge badge-primary">2</label> 
-                                <div class="clearfix"></div>
-                            </a>
+                        <div id="task-item-list-container" class="list-group shadow-box">                            
                         </div>
                     </div>
 

@@ -20,7 +20,9 @@
     });
 
     function initializeEvents() {
-        $('#action-add-task-item').click(addTaskItem);
+        $('#action-add-task-item').click(function() {
+            addTaskItem();
+        });
     }
 
     function addTaskItem() {

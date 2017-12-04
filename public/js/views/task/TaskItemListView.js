@@ -5,11 +5,13 @@ class TaskItemListView {
         this.elContainer = null;
         this.taskItemMap = {};
         this.lastTaskId = 0;
+        this.lastOrder = 0;
+
+        this._taskItemListItemTemplate = _.template(document.querySelector('#task-item-list-item-template').innerHTML);
     }
 
     bindElementAsContainer(elSelector) {
-        this.elContainer = document.querySelector(elSelector);
-
+        this.elContainer = document.querySelector(elSelector);        
         this.initEvents();
     }
 
@@ -37,9 +39,11 @@ class TaskItemListView {
     addTaskItem(taskItem) {
         //  use map for linear lookup
         this.taskItemMap[taskItem.id] = taskItem;
-        this.lastTaskId++;
+        this.taskItemMap[taskItem.id].order = ++this.lastOrder;
 
-        console.log(this.taskItemMap);
+        this.lastTaskId++;        
+
+        this.elContainer.innerHTML += this._taskItemListItemTemplate(taskItem);
     }
 
     getTaskItemById(taskId) {
