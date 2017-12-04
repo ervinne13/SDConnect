@@ -5,8 +5,7 @@
 @section('js')
 <script>
 
-    let task = {!! $task !!}
-    ;
+    let task = {!! $task !!};
 
 </script>
 
