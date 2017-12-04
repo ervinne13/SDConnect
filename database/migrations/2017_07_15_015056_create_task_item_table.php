@@ -16,30 +16,26 @@ class CreateTaskItemTable extends Migration
      */
     public function up()
     {
-        // <editor-fold defaultstate="collapsed" desc="Pessimistic Validation">
-        if ( Schema::hasTable(self::TABLE_NAME) ) {
-            return;
-        }
-        // </editor-fold>
-
         Schema::create(self::TABLE_NAME, function(Blueprint $table) {
-            $table->bigIncrements('id');
             $table->bigInteger('task_id')->unsigned();
+            $table->integer('order')->unsigned();
             $table->string('type_code')
                 ->comment('Type Code: (MC) Multiple Choice, (TF) True or False, (FB) Fill in the Blanks, (ATT) Attachment, (E) Essay');
             $table->integer('points')->unsigned();
+            $table->string('task_item_name', 30);
             $table->text('task_item_text');
             $table->text('choices_json');
             $table->text('correct_answer_free_field');
             $table->timestamps();
-
+            
+            $table->primary(['task_id', 'order']);
+//
             $table->foreign('task_id')
-                ->references('id')->on('task')
+                ->references('id')
+                ->on('task')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-
-            $table->index('task_id');
-        });
+        });        
     }
 
     /**
@@ -49,15 +45,9 @@ class CreateTaskItemTable extends Migration
      */
     public function down()
     {
-        // <editor-fold defaultstate="collapsed" desc="Pessimistic Validation">
-        if ( !Schema::hasTable(self::TABLE_NAME) ) {
-            return;
-        }
-        // </editor-fold>
-
         Schema::disableForeignKeyConstraints();
 
-        Schema::drop(self::TABLE_NAME);
+        Schema::dropIfExists(self::TABLE_NAME);
 
         Schema::disableForeignKeyConstraints();
     }

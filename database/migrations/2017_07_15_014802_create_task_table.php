@@ -16,12 +16,6 @@ class CreateTaskTable extends Migration
      */
     public function up()
     {
-        // <editor-fold defaultstate="collapsed" desc="Pessimistic Validation">
-        if ( Schema::hasTable(self::TABLE_NAME) ) {
-            return;
-        }
-        // </editor-fold>
-
         Schema::create(self::TABLE_NAME, function(Blueprint $table) {
             $table->bigIncrements('id');
             $table->boolean('randomizes_tasks')->default(false);
@@ -40,13 +34,7 @@ class CreateTaskTable extends Migration
      */
     public function down()
     {
-        // <editor-fold defaultstate="collapsed" desc="Pessimistic Validation">
-        if ( !Schema::hasTable(self::TABLE_NAME) ) {
-            return;
-        }
-        // </editor-fold>
-
-        Schema::drop(self::TABLE_NAME);
+        Schema::dropIfExists(self::TABLE_NAME);
     }
 
 }

@@ -18,8 +18,8 @@ return [
     'organization_name' => 'Saint Dominic College of Asia',
     'organization_short_name' => 'St. Dominic',
     
-    'author_link' => 'http://ervinne13.github.io',
-    'author' => 'Ervinnne Sodusta',
+    'author_link' => '#',
+    'author' => 'Codex Team',
 
     /*
     |--------------------------------------------------------------------------

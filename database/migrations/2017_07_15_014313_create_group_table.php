@@ -16,12 +16,6 @@ class CreateGroupTable extends Migration
      */
     public function up()
     {
-        // <editor-fold defaultstate="collapsed" desc="Pessimistic Validation">
-        if ( Schema::hasTable(self::TABLE_NAME) ) {
-            return;
-        }
-        // </editor-fold>
-
         Schema::create(self::TABLE_NAME, function(Blueprint $table) {
             $table->string('code', 30)->index();
             $table->string('owner_username', 30)->index();
@@ -49,15 +43,10 @@ class CreateGroupTable extends Migration
      */
     public function down()
     {
-        // <editor-fold defaultstate="collapsed" desc="Pessimistic Validation">
-        if ( !Schema::hasTable(self::TABLE_NAME) ) {
-            return;
-        }
-        // </editor-fold>
         //  disable constraints, group member table is dependent on this
         Schema::disableForeignKeyConstraints();
 
-        Schema::drop(self::TABLE_NAME);
+        Schema::dropIfExists(self::TABLE_NAME);
 
         Schema::disableForeignKeyConstraints();
     }
