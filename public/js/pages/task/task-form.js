@@ -11,7 +11,9 @@
         taskItemEditor.bindElementAsContainer('#task-item-editor-container');
 
         //  inter-component bindings
-        taskItemEditor.onTaskItemMapUpdated(taskItemListView.updateListWithMap);
+        taskItemEditor.onTaskItemSaveCommand(function(taskItem) {
+            taskItemListView.saveTaskItem(taskItem)
+        });
 
         initializeEvents();
 
@@ -21,8 +23,9 @@
         $('#action-add-task-item').click(addTaskItem);
     }
 
-    function addTaskItem() {       
-        taskItemEditor.displayTaskItem(taskItemEditor.addBlankTaskItem());
+    function addTaskItem() {
+        let taskItem = taskItemListView.addBlankTaskItem();
+        taskItemEditor.displayTaskItem(taskItem);
     }
 
 })();

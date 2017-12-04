@@ -14,7 +14,7 @@
 <script src="{{url("js/views/task/TaskItemListView.js")}}"></script>
 <script src="{{url("js/views/task/TaskItemEditorView.js")}}"></script>
 
-<script src="{{url("js/pages/task/form.js")}}"></script>
+<script src="{{url("js/pages/task/task-form.js")}}"></script>
 @endsection
 
 @section('content')

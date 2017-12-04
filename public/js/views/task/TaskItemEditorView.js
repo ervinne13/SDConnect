@@ -2,9 +2,6 @@ class TaskItemEditorView {
 
     constructor() {
         this.elContainer = null;
-        this.taskItemMap = {};
-
-        this.lastTaskId = 0;
 
         this._taskItemViewTemplate = _.template(document.querySelector('#task-item-view-template').innerHTML);
         this._mcOptionTemplate = _.template(document.querySelector('#multiple-choice-option-template').innerHTML);
@@ -17,40 +14,8 @@ class TaskItemEditorView {
         this.currentlyDisplayingTaskId = null;
 
         //  callbacks
-        this.onTaskItemMapUpdatedCallback = null;
-    }
-
-    addBlankTaskItem() {
-        //  TODO move task id handling to TaskItemListView
-        let latestId = this.lastTaskId + 1;
-
-        let taskItem = {
-            id: latestId,
-            type_code: 'MC',
-            points: 1,
-            task_item_text: '',
-            choices_json: [],
-            correct_answer_free_field: ''
-        };
-
-        this.addTaskItem(taskItem);
-
-        return taskItem;
-    }
-
-    addTaskItem(taskItem) {
-        //  use map for linear lookup
-        this.taskItemMap[taskItem.id] = taskItem;
-
-        this.lastTaskId++;
-
-        if (this.onTaskItemMapUpdatedCallback) {
-            this.onTaskItemMapUpdatedCallback(this.taskItemMap);
-        }
-    }
-
-    getTaskItemById(taskId) {
-        return this.taskItemMap[taskId];
+        this.onTaskItemSaveCommandCallback = null;        
+        this.onTaskItemDeleteCommandCallback = null;        
     }
 
     displayTaskItem(taskItem) {
@@ -82,8 +47,12 @@ class TaskItemEditorView {
         }.bind(this));
 
         $(document).on('click', '#action-save-task-item', function () {
-            let taskItem = this.getTaskItemDataFromFields();
-            this.saveTaskItem(taskItem);
+            let taskItem = this.getTaskItemDataFromFields();            
+
+            if (this.onTaskItemSaveCommandCallback) {
+                this.onTaskItemSaveCommandCallback(taskItem);
+            }
+
         }.bind(this));
 
     }
@@ -97,14 +66,6 @@ class TaskItemEditorView {
 
     addOption() {
         $('ul#choices-container').append(this._mcOptionTemplate());
-    }
-
-    saveTaskItem(taskItem) {
-        this.taskItemMap[taskItem.id] = taskItem;
-
-        if (this.onTaskItemMapUpdatedCallback) {
-            this.onTaskItemMapUpdatedCallback(this.taskItemMap);
-        }
     }
 
     getTaskItemDataFromFields() {
@@ -170,8 +131,12 @@ class TaskItemEditorView {
         }
     }
 
-    onTaskItemMapUpdated(callback) {
-        this.onTaskItemMapUpdatedCallback = callback;
+    onTaskItemSaveCommand(callback) {
+        this.onTaskItemSaveCommandCallback = callback;
+    }
+
+    onTaskItemDeleteCommand(callback) {
+        this.onTaskItemDeleteCommandCallback = callback;
     }
 
     static get TaskItemTypes() {
