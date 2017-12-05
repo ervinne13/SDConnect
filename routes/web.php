@@ -38,5 +38,5 @@ Route::group(['namespace' => 'Modules\System', 'middleware' => ['auth']], functi
 
     Route::get('calendar/posts', 'CalendarController@getPostsByDateRange');
 
-    Route::resource('group.task', 'GroupTaskController');
+    Route::resource('task', 'TaskController');
 });

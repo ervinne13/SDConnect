@@ -104,7 +104,7 @@
         @include("layouts.parts.composite-js-scripts")
         @include("layouts.parts.default-js")
 
-        <!--Compiled version of skarla/js/app scripts-->
+        <!--Compiled version of skarla/js/app scripts-->        
         <script src="{{skarla_js_url("app.min.e05f769f.js")}}"></script>               
         <script src="{{skarla_js_url("plugins-init.js")}}"></script>
         <script src="{{skarla_js_url("switchery-settings.js")}}"></script>                       

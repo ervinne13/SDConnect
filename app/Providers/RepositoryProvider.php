@@ -14,7 +14,6 @@ use App\Modules\System\Task\Repository\TaskRepository;
 use App\Modules\System\User\Repository\Impl\UserRepositoryDefaultImpl;
 use App\Modules\System\User\Transformers\UserAccountTransformer;
 use App\Modules\User\System\Repository\UserRepository;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryProvider extends ServiceProvider

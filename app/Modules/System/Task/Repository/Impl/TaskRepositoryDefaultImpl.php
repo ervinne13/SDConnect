@@ -20,4 +20,6 @@ class TaskRepositoryDefaultImpl extends BasicBaseRepository implements TaskRepos
         parent::__construct(Task::class, $transformer);
     }
 
+    
+    
 }

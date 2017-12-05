@@ -1,3 +1,5 @@
+/* global toastr */
+
 (function () {
 
     let taskItemEditor, taskItemListView;
@@ -17,17 +19,19 @@
 
     function initInterComponentEvents() {
 
-        taskItemListView.onTaskItemListItemClicked(function (taskItem) {            
+        taskItemListView.onTaskItemListItemClicked(function (taskItem) {
             taskItemEditor.displayTaskItem(taskItem);
         });
 
         taskItemEditor.onTaskItemSaveCommand(function (taskItem) {
             taskItemListView.saveTaskItem(taskItem);
+            toastr.info('Task item saved locally, click "Save" to save all', 'Heads Up!');
         });
 
-        taskItemEditor.onTaskItemSaveAndNewCommand(function (taskItem) {            
+        taskItemEditor.onTaskItemSaveAndNewCommand(function (taskItem) {
             taskItemListView.saveTaskItem(taskItem);
             addTaskItem();
+            toastr.info('Task item saved locally, click "Save" to save all', 'Heads Up!');
         });
 
         taskItemEditor.onTaskItemDeleteCommand(function (taskItemId) {
@@ -46,6 +50,19 @@
         $(document).on('click', '#action-add-task-item', function () {
             addTaskItem();
         });
+
+        $('#action-save-post').click(function () {
+            getSaveTaskRequest()
+                    .done(response => {
+                        console.log(response);
+                        swal('Success', 'Task Saved', 'success');
+                    })
+                    .fail(xhr => {
+                        console.error(xhr);
+                        swal('Error', xhr.responseText, 'error');
+                    });
+        });
+
     }
 
     function addTaskItem() {
@@ -66,6 +83,17 @@
         $('#action-add-task-item span').text(text);
 
         $('#action-add-task-item').appendTo(`#add-task-item-container-${containerNumber}`);
+    }
+
+    function getTaskData() {
+        
+    }
+
+    function getSaveTaskRequest() {
+        let url = app.baseUrl + '/task';
+        let task = getTaskData();
+
+        return $.post(url, task);
     }
 
 })();

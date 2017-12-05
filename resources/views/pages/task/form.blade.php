@@ -3,6 +3,9 @@
 @extends('layouts.skarla')
 
 @section('js')
+
+<script src="{{url('skarla/assets/vendor/js/toastr.min.js')}}"></script>
+
 <script>
 
     let group = {!! $group !!};

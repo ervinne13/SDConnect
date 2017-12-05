@@ -1,7 +1,7 @@
 
 <div class="p-a-2">
 
-    <a href="{{url('group/' . $group->getCode() . '/task/create')}}" class="btn btn-success">
+    <a href="{{url('/task/create?group=' . $group->getCode())}}" class="btn btn-success">
         <i class="fa fa-plus"></i>
         Create Task
     </a>
