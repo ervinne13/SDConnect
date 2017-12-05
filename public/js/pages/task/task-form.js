@@ -17,8 +17,7 @@
 
     function initInterComponentEvents() {
 
-        taskItemListView.onTaskItemListItemClicked(function (taskItem) {
-            console.log(taskItem);
+        taskItemListView.onTaskItemListItemClicked(function (taskItem) {            
             taskItemEditor.displayTaskItem(taskItem);
         });
 
@@ -26,19 +25,17 @@
             taskItemListView.saveTaskItem(taskItem);
         });
 
-        taskItemEditor.onTaskItemSaveAndNewCommand(function (taskItem) {
-            console.log('save new ', taskItem);
+        taskItemEditor.onTaskItemSaveAndNewCommand(function (taskItem) {            
             taskItemListView.saveTaskItem(taskItem);
             addTaskItem();
         });
 
-        taskItemEditor.onTaskItemDeleteCommand(function (taskItem) {
-            taskItemListView.deleteTaskItem(taskItem);
+        taskItemEditor.onTaskItemDeleteCommand(function (taskItemId) {
+            taskItemListView.deleteTaskItem(taskItemId);
             let remainingTaskItems = taskItemListView.getTaskItemsByOrder();
 
             if (remainingTaskItems.length > 0) {
-                let lastTaskItem = remainingTaskItems[remainingTaskItems.length - 1];
-                taskItemEditor.displayTaskItem(lastTaskItem);
+                $('#task-item-editor-container').html('Select a task item to display');
             } else {
                 $('#task-item-editor-container').html('No task items left.');
             }
@@ -58,6 +55,7 @@
         }
 
         let taskItem = taskItemListView.addBlankTaskItem();
+        taskItemListView.displayTaskItem(taskItem);
         taskItemEditor.displayTaskItem(taskItem);
     }
 

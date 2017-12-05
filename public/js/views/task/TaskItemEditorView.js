@@ -79,11 +79,11 @@ class TaskItemEditorView {
 
         }.bind(this));
 
-        $(document).on('click', '#action-delete-task-item', function () {
-            let taskItem = this.getTaskItemDataFromFields();
+        $(document).on('click', '#action-delete-task-item', function () {            
+            let taskItemId = $('.task-item-container').data('id');
 
             if (this.onTaskItemDeleteCommandCallback) {
-                this.onTaskItemDeleteCommandCallback(taskItem);
+                this.onTaskItemDeleteCommandCallback(taskItemId);
             }
 
         }.bind(this));

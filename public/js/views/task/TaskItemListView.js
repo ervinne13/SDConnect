@@ -26,6 +26,7 @@ class TaskItemListView {
             let taskItem = self.taskItemMap[id];
             
             if (self.onTaskItemListItemClickedCallback) {
+                self.displayTaskItem(taskItem);
                 self.onTaskItemListItemClickedCallback(taskItem);
             } else {
                 console.warn('TaskItemListView', 'onTaskItemListItemClicked is triggered but no handler is specified');
@@ -59,8 +60,7 @@ class TaskItemListView {
 
         this.lastTaskId++;
 
-        this.elContainer.append(this._taskItemListItemTemplate(taskItem));
-        console.log(taskItem);
+        this.elContainer.append(this._taskItemListItemTemplate(taskItem));        
     }
 
     getTaskItemById(taskId) {
@@ -75,19 +75,23 @@ class TaskItemListView {
         console.log(taskItemMap);
     }
 
-    saveTaskItem(taskItem) {
-        this.taskItemMap[taskItem.id] = taskItem;
-
-        console.log(this.taskItemMap);
+    displayTaskItem(taskItem) {
+        $(`.task-item-list-item`).removeClass('active');
+        $(`.task-item-list-item[data-id=${taskItem.id}]`).addClass('active');
     }
 
-    deleteTaskItem(taskItem) {
-        $(`.task-item-list-item[data-id=${taskItem.id}]`).remove();
-        delete this.taskItemMap[taskItem.id];
+    saveTaskItem(taskItem) {
+        this.taskItemMap[taskItem.id] = taskItem;
+    }
+
+    deleteTaskItem(taskItemId) {
+        $(`.task-item-list-item[data-id=${taskItemId}]`).remove();
+        delete this.taskItemMap[taskItemId];
 
         for (let i = 0; i < this.taskItemsByOrder.length; i++) {
-            if (this.taskItemsByOrder[i].id == taskItem.id) {
+            if (this.taskItemsByOrder[i].id == taskItemId) {
                 delete this.taskItemsByOrder[i];
+                break;
             }
         }
 
