@@ -5,12 +5,13 @@
 @section('js')
 <script>
 
-    let task = {!! $task !!};
+    let task = {!! $task !!}
+    ;
 
 </script>
 
-@include('pages.task.templates.task-view');
-@include('pages.task.templates.task-item-list-item');
+@include('pages.task.templates.task-view')
+@include('pages.task.templates.task-item-list-item')
 
 <script src="{{url("js/views/task/TaskItemListView.js")}}"></script>
 <script src="{{url("js/views/task/TaskItemEditorView.js")}}"></script>
@@ -31,6 +32,10 @@
 
                     <div class="col-sm-2 m-r-0">
                         <div id="task-item-list-container" class="list-group shadow-box">                            
+                        </div>
+
+                        <div id="add-task-item-container-2">
+
                         </div>
                     </div>
 

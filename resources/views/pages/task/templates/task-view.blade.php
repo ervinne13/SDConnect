@@ -32,10 +32,24 @@
         <div id="special-fields-container">
 
         </div>
-        
-        <div class="action-buttons pull-right">
-            <button id="action-save-task-item" class="btn btn-primary">Save Task Item</button>
-            <button id="action-save-task-item" class="btn btn-danger">Delete Task Item</button>
+
+        <div class="action-buttons">
+            <div class="pull-left">
+                <button id="action-save-task-item" class="btn btn-primary">
+                    <i class="fa fa-plus"></i>
+                    Save Task Item
+                </button>
+                <button id="action-save-new-task-item" class="btn btn-success">
+                    <i class="fa fa-plus"></i>
+                    Save Task Item And New
+                </button>
+            </div>
+            <div class="pull-right">
+                <button id="action-delete-task-item" class="btn btn-danger">
+                    <i class="fa fa-remove"></i>
+                    Delete Task Item
+                </button>
+            </div>
         </div>
 
     </div>
@@ -52,7 +66,7 @@
             <span class="input-group-addon">
                 <input type="radio" name="correct_answer_free_field" class="check-correct-answer">
             </span>
-            <input type="text" class="form-control mc-option-text" placeholder="Enter a text for the option">
+            <input type="text" class="form-control mc-option-text" placeholder="Enter a text for the option" value="<%= option_text %>">
         </div>                        
     </li>
 </script>

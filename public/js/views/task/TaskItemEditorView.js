@@ -14,15 +14,24 @@ class TaskItemEditorView {
         this.currentlyDisplayingTaskId = null;
 
         //  callbacks
-        this.onTaskItemSaveCommandCallback = null;        
-        this.onTaskItemDeleteCommandCallback = null;        
+        this.onTaskItemSaveCommandCallback = null;
+        this.onTaskItemSaveAndNewCommandCallback = null;
+        this.onTaskItemDeleteCommandCallback = null;
     }
 
     displayTaskItem(taskItem) {
         this.currentlyDisplayingTaskId = taskItem.id;
         this.elContainer.innerHTML = this._taskItemViewTemplate(taskItem);
 
-        this.updatedSpecialFields();
+        this.updateSpecialFields();
+
+        if (taskItem.choices_json.length) {
+            for (let i in taskItem.choices_json) {
+                this.addOption({
+                    option_text: taskItem.choices_json[i]
+                });
+            }
+        }
     }
 
     bindElementAsContainer(elSelector) {
@@ -35,7 +44,9 @@ class TaskItemEditorView {
 
         //  fall back to jQuery for complex event handling
         $(document).on('click', '#action-add-option', function () {
-            this.addOption();
+            this.addOption({
+                option_text: ''
+            });
         }.bind(this));
 
         $(document).on('click', '.action-remove-mc-option', function () {
@@ -43,11 +54,13 @@ class TaskItemEditorView {
         });
 
         $(document).on('change', '#input-type', function () {
-            this.updatedSpecialFields();
+            this.updateSpecialFields();
         }.bind(this));
 
+        //  external callback events
+
         $(document).on('click', '#action-save-task-item', function () {
-            let taskItem = this.getTaskItemDataFromFields();            
+            let taskItem = this.getTaskItemDataFromFields();
 
             if (this.onTaskItemSaveCommandCallback) {
                 this.onTaskItemSaveCommandCallback(taskItem);
@@ -55,17 +68,35 @@ class TaskItemEditorView {
 
         }.bind(this));
 
+        $(document).on('click', '#action-save-new-task-item', function () {
+            let taskItem = this.getTaskItemDataFromFields();
+
+            if (this.onTaskItemSaveAndNewCommandCallback) {
+                this.onTaskItemSaveAndNewCommandCallback(taskItem);
+            }
+
+        }.bind(this));
+
+        $(document).on('click', '#action-delete-task-item', function () {
+            let taskItem = this.getTaskItemDataFromFields();
+
+            if (this.onTaskItemDeleteCommandCallback) {
+                this.onTaskItemDeleteCommandCallback(taskItem);
+            }
+
+        }.bind(this));
+
     }
 
-    updatedSpecialFields() {
+    updateSpecialFields() {
         let taskItemType = document.querySelector('#input-type').value;
         let container = document.querySelector('#special-fields-container');
 
         container.innerHTML = this._specialFieldsTemplates[taskItemType]();
     }
 
-    addOption() {
-        $('ul#choices-container').append(this._mcOptionTemplate());
+    addOption(option) {
+        $('ul#choices-container').append(this._mcOptionTemplate(option));
     }
 
     getTaskItemDataFromFields() {
@@ -133,6 +164,10 @@ class TaskItemEditorView {
 
     onTaskItemSaveCommand(callback) {
         this.onTaskItemSaveCommandCallback = callback;
+    }
+
+    onTaskItemSaveAndNewCommand(callback) {
+        this.onTaskItemSaveAndNewCommandCallback = callback;
     }
 
     onTaskItemDeleteCommand(callback) {

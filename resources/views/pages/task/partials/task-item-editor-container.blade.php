@@ -20,11 +20,11 @@
                         To add a new task item in this task, click the button below.
                     </p>
 
-                    <br>
-                    <div class="text-center">
+                    <br>                    
+                    <div id="add-task-item-container-1" class="text-center">
                         <button id="action-add-task-item" class="btn btn-success">
                             <i class="fa fa-plus"></i>
-                            Add a new Task Item Now
+                            <span>Add a new Task Item Now</span>
                         </button>
                     </div>
 

@@ -7,16 +7,30 @@ class TaskItemListView {
         this.lastTaskId = 0;
         this.lastOrder = 0;
 
+        this.taskItemsByOrder = [];
+
         this._taskItemListItemTemplate = _.template(document.querySelector('#task-item-list-item-template').innerHTML);
+
+        this.onTaskItemListItemClickedCallback = null;
     }
 
     bindElementAsContainer(elSelector) {
-        this.elContainer = document.querySelector(elSelector);        
+        this.elContainer = $(elSelector);
         this.initEvents();
     }
 
     initEvents() {
-
+        let self = this;
+        $(document).on('click', '.task-item-list-item', function () {
+            let id = $(this).data('id');
+            let taskItem = self.taskItemMap[id];
+            
+            if (self.onTaskItemListItemClickedCallback) {
+                self.onTaskItemListItemClickedCallback(taskItem);
+            } else {
+                console.warn('TaskItemListView', 'onTaskItemListItemClicked is triggered but no handler is specified');
+            }
+        });
     }
 
     addBlankTaskItem() {
@@ -41,13 +55,20 @@ class TaskItemListView {
         this.taskItemMap[taskItem.id] = taskItem;
         this.taskItemMap[taskItem.id].order = ++this.lastOrder;
 
-        this.lastTaskId++;        
+        this.taskItemsByOrder.push(taskItem);
 
-        this.elContainer.innerHTML += this._taskItemListItemTemplate(taskItem);
+        this.lastTaskId++;
+
+        this.elContainer.append(this._taskItemListItemTemplate(taskItem));
+        console.log(taskItem);
     }
 
     getTaskItemById(taskId) {
         return this.taskItemMap[taskId];
+    }
+
+    getTaskItemsByOrder() {
+        return this.taskItemsByOrder;
     }
 
     updateListWithMap(taskItemMap) {
@@ -58,6 +79,26 @@ class TaskItemListView {
         this.taskItemMap[taskItem.id] = taskItem;
 
         console.log(this.taskItemMap);
+    }
+
+    deleteTaskItem(taskItem) {
+        $(`.task-item-list-item[data-id=${taskItem.id}]`).remove();
+        delete this.taskItemMap[taskItem.id];
+
+        for (let i = 0; i < this.taskItemsByOrder.length; i++) {
+            if (this.taskItemsByOrder[i].id == taskItem.id) {
+                delete this.taskItemsByOrder[i];
+            }
+        }
+
+    }
+
+    isEmpty() {
+        return vanilla.isObjectEmpty(this.taskItemMap);
+    }
+
+    onTaskItemListItemClicked(callback) {       
+        this.onTaskItemListItemClickedCallback = callback;
     }
 
 }
