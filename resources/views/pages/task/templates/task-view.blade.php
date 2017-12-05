@@ -64,7 +64,7 @@
                 </a>
             </span>
             <span class="input-group-addon">
-                <input type="radio" name="correct_answer_free_field" class="check-correct-answer">
+                <input type="radio" name="correct_answer_free_field" class="check-correct-answer" value="<%= option_text %>">
             </span>
             <input type="text" class="form-control mc-option-text" placeholder="Enter a text for the option" value="<%= option_text %>">
         </div>                        

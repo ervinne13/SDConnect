@@ -32,6 +32,8 @@ class TaskItemEditorView {
                 });
             }
         }
+
+        this.setAnswer(taskItem);
     }
 
     bindElementAsContainer(elSelector) {
@@ -139,6 +141,14 @@ class TaskItemEditorView {
             return choices;
         } else {
             return [];
+        }
+    }
+
+    setAnswer(taskItem) {
+        if (taskItem.type_code === 'TF') {
+            $('[name=correct_answer_free_field]').val(taskItem.correct_answer_free_field);
+        } else if (taskItem.type_code === 'MC') {
+            $(`[name=correct_answer_free_field][value="${taskItem.correct_answer_free_field}"]`).prop('checked', true);
         }
     }
 
