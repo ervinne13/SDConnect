@@ -5,6 +5,7 @@
 @section('js')
 <script>
 
+    let group = {!! $group !!};
     let task = {!! $task !!};
 
 </script>
@@ -55,7 +56,11 @@
                 <div class="panel-body">
                     @include('pages.task.partials.task-header-form')
 
-                    @include('module.form-actions')
+                    <div class="pull-right">
+                        <button id="action-save-post" type="button" class="action-button btn-sm btn btn-success">Save & Post</button>
+                        <button id="action-save-only" type="button" class="action-button btn-sm btn btn-primary">Save Without Posting</button>
+                        <a href="{{url('/group/' . $group->code)}}" class="btn btn-sm btn bg-grey">Close</a>
+                    </div>
                 </div>
             </div>
         </div>

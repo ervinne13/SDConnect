@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use function view;
 
-class TaskController extends Controller
+class GroupTaskController extends Controller
 {
 
     /** @var GroupRepository */
@@ -40,9 +40,9 @@ class TaskController extends Controller
      *
      * @return Response
      */
-    public function create(Request $request)
+    public function create(Request $request, $groupCode)
     {
-        $group = $request->group ? $this->groupRepo->find($request->group) : null;
+        $group = $request->group ? $this->groupRepo->find($groupCode) : null;
         $task  = new Task();
 
         return view('pages.task.form', [
