@@ -2,6 +2,8 @@
 
 namespace App\Modules\System\Task\Repository;
 
+use App\Http\Requests\System\Task\SaveTaskRequest;
+
 /**
  * Description of TaskRepository
  *
@@ -9,5 +11,5 @@ namespace App\Modules\System\Task\Repository;
  */
 interface TaskRepository
 {
-    //put your code here
+    public function saveWithHttpRequest(SaveTaskRequest $request);
 }

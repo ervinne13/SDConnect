@@ -15,7 +15,15 @@
         initInterComponentEvents();
         initEvents();
 
+        initDummyTaskItems();
+
     });
+
+    function initDummyTaskItems() {
+        for (let i in dummyTaskItems) {
+            taskItemListView.addTaskItem(dummyTaskItems[i]);
+        }
+    }
 
     function initInterComponentEvents() {
 
@@ -87,6 +95,10 @@
 
     function getTaskData() {
         return {
+            display_name: $('[name=display_name]').val(),
+            type_code: $('[name=type_code]').val(),
+            randomizes_tasks: $('[name=randomizes_tasks]').is(':checked'),
+            description: $('[name=description]').val(),
             task_items: taskItemListView.getTaskItemsByOrder(),
         };
     }
@@ -95,12 +107,10 @@
         let url = app.baseUrl + '/task';
         let task = getTaskData();
 
-        console.log(task);
-
         return $.post(url, task);
     }
 
-    let dummyTasks = [
+    let dummyTaskItems = [
         {id: 1, type_code: "MC", points: 1, task_item_text: "Test MC 01", choices_json: ["1", "2"], correct_answer_free_field: "2"},
         {id: 2, type_code: "MC", points: 1, task_item_text: "Test MC 02", choices_json: ["5", "6", "7"], correct_answer_free_field: "6"},
         {id: 3, type_code: "TF", points: 1, task_item_text: "Test TF 01", choices_json: [], correct_answer_free_field: "true"},

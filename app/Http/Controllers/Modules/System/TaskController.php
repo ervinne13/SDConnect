@@ -7,6 +7,7 @@ use App\Http\Requests\System\Task\SaveTaskRequest;
 use App\Modules\System\Group\Repository\GroupRepository;
 use App\Modules\System\Task\Repository\TaskRepository;
 use App\Modules\System\Task\Task;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use function view;
@@ -59,9 +60,14 @@ class TaskController extends Controller
      * @param  SaveTaskRequest  $request
      * @return Response
      */
-    public function store(SaveTaskRequest $request)
+    public function store(SaveTaskRequest $request, TaskRepository $repo)
     {
-        $request->decompose();
+        try {
+            $repo->saveWithHttpRequest($request);
+            return response("Saved");
+        } catch(Exception $e) {
+            return handle_controller_exception($e);
+        }
     }
 
     /**

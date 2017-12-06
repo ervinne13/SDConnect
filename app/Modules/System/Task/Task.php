@@ -2,6 +2,7 @@
 
 namespace App\Modules\System\Task;
 
+use App\Modules\System\Task\TaskItem;
 use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
@@ -23,6 +24,12 @@ class Task extends Model
     ];
 
     // <editor-fold defaultstate="collapsed" desc="Relationships">
+    
+    public function items()
+    {
+        return $this->hasMany(TaskItem::class, 'task_id');
+    }
+
     // </editor-fold>
 
     /**/

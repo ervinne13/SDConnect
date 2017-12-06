@@ -107,4 +107,17 @@ if ( !function_exists('value_at_key') ) {
 
 }
 
+if ( !function_exists('handle_controller_exception') ) {
+
+    function handle_controller_exception(\Exception $e)
+    {
+        if (env('APP_DEBUG', false)) {
+            throw $e;
+        } else {
+            return response($e->getMessage(), 500);
+        }
+    }
+
+}
+
 // </editor-fold>

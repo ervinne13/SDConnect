@@ -18,4 +18,9 @@ class TaskItem extends Model
     protected $table    = "task_item";
     protected $fillable = ["task_id", "type_code", "points", "task_item_text", "choices_json", "correct_answer_free_field"];
 
+    public function scopeTask($query, $id)
+    {
+        return $query->where('task_id', $id);
+    }    
+
 }
