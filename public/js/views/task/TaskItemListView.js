@@ -52,6 +52,7 @@ class TaskItemListView {
     }
 
     addTaskItem(taskItem) {
+
         //  use map for linear lookup
         this.taskItemMap[taskItem.id] = taskItem;
         this.taskItemMap[taskItem.id].order = ++this.lastOrder;
@@ -82,6 +83,13 @@ class TaskItemListView {
 
     saveTaskItem(taskItem) {
         this.taskItemMap[taskItem.id] = taskItem;
+
+        for (let i in this.taskItemsByOrder) {
+            if (this.taskItemsByOrder[i].id == taskItem.id) {
+                this.taskItemsByOrder[i] = taskItem;
+                break;
+            }
+        }
     }
 
     deleteTaskItem(taskItemId) {

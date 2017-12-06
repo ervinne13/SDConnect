@@ -86,14 +86,26 @@
     }
 
     function getTaskData() {
-        
+        return {
+            task_items: taskItemListView.getTaskItemsByOrder(),
+        };
     }
 
     function getSaveTaskRequest() {
         let url = app.baseUrl + '/task';
         let task = getTaskData();
 
+        console.log(task);
+
         return $.post(url, task);
     }
+
+    let dummyTasks = [
+        {id: 1, type_code: "MC", points: 1, task_item_text: "Test MC 01", choices_json: ["1", "2"], correct_answer_free_field: "2"},
+        {id: 2, type_code: "MC", points: 1, task_item_text: "Test MC 02", choices_json: ["5", "6", "7"], correct_answer_free_field: "6"},
+        {id: 3, type_code: "TF", points: 1, task_item_text: "Test TF 01", choices_json: [], correct_answer_free_field: "true"},
+        {id: 4, type_code: "TF", points: 1, task_item_text: "Test TF 02", choices_json: [], correct_answer_free_field: "false"},
+    ];
+
 
 })();
