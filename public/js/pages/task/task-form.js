@@ -64,6 +64,7 @@
                     .done(response => {
                         console.log(response);
                         swal('Success', 'Task Saved', 'success');
+                        //  TODO: ask for post details here
                     })
                     .fail(xhr => {
                         console.error(xhr);

@@ -63,8 +63,8 @@ class TaskController extends Controller
     public function store(SaveTaskRequest $request, TaskRepository $repo)
     {
         try {
-            $repo->saveWithHttpRequest($request);
-            return response("Saved");
+            $savedTask = $repo->saveWithHttpRequest($request);
+            return $savedTask;
         } catch(Exception $e) {
             return handle_controller_exception($e);
         }

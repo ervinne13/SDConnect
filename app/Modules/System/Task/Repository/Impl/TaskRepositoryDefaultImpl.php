@@ -41,6 +41,8 @@ class TaskRepositoryDefaultImpl extends BasicBaseRepository implements TaskRepos
             //  save the new task items
             $task->items()->saveMany($request->getTaskItems());
 
+            return $task;
+
             DB::commit();
         } catch(Exception $e) {
             DB::rollback();
