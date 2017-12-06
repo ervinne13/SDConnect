@@ -48,6 +48,10 @@ class SaveTaskRequest extends FormRequest
         //  decompose task item list
         $this->taskItems = [];
         foreach ($this->task_items as $taskItem) {
+            if (!$taskItem) {
+                continue;
+            }
+            
             $taskItem = new TaskItem($taskItem);
             $taskItem->choices_json = json_encode($taskItem['choices_json']);
             array_push($this->taskItems, $taskItem);
