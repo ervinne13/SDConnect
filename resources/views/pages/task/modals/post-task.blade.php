@@ -1,4 +1,4 @@
-<div class="modal fade">
+<div id="post-task-modal" class="modal fade" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -25,7 +25,7 @@
                   </div>
 
                   <div class="form-group">
-                      <label class="control-label" >Deadline</label>
+                      <label class="control-label">Deadline</label>
                       <input name="date_time_to" type="text" class="form-control">
                   </div>
 
@@ -35,7 +35,7 @@
       </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button id="action-post" type="button" class="btn btn-primary">Post</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>

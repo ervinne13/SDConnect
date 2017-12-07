@@ -27,6 +27,11 @@ class TaskController extends Controller
         $this->groupRepo = $groupRepo;
     }
 
+    public function listAllJson()
+    {        
+        return Task::all();
+    }
+
     /**
      * Display a listing of the resource.
      *

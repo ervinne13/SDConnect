@@ -13,12 +13,15 @@
 
 </script>
 
+@include('pages.task.modals.post-task')
+
 @include('pages.task.templates.task-view')
 @include('pages.task.templates.task-item-list-item')
 
 <script src="{{url("js/views/task/TaskItemListView.js")}}"></script>
 <script src="{{url("js/views/task/TaskItemEditorView.js")}}"></script>
 
+<script src="{{url("js/pages/task/modal/post-task.js")}}"></script>
 <script src="{{url("js/pages/task/task-form.js")}}"></script>
 @endsection
 
