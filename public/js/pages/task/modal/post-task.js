@@ -12,6 +12,7 @@ let PostTaskModal = (function() {
         getTasksRequest()
             .done(tasks => {
                 console.log(tasks);
+                displayTasks(tasks);
             })
             .fail(xhr => {
                 console.error(xhr);
