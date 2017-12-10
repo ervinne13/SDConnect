@@ -16,6 +16,13 @@
         initEvents();
 
         initDummyTaskItems();
+        
+        let affectedElements = [
+            $('.main-wrap'),
+            $('.panel'),
+        ];
+        
+        rainbow.showLoading(true, affectedElements);
 
     });
 
@@ -60,18 +67,22 @@
         });
 
         $('#action-save-post').click(function () {
-            // getSaveTaskRequest()
-            //         .done(response => {
-            //             console.log(response);
-            //             swal('Success', 'Task Saved', 'success');
-            //             //  TODO: ask for post details here
-            //         })
-            //         .fail(xhr => {
-            //             console.error(xhr);
-            //             swal('Error', xhr.responseText, 'error');
-            //         });
-            
-            PostTaskModal.show();
+            getSaveTaskRequest()
+                    .done(response => {
+                        console.log(response);
+                        swal('Success', 'Task Saved', 'success');
+
+                        PostTaskModal.show();
+
+                    })
+                    .fail(xhr => {
+                        console.error(xhr);
+                        swal('Error', xhr.responseText, 'error');
+                    }).always(() => {
+                        showLoading(false);
+                    });
+
+            showLoading(true);
         });
 
     }

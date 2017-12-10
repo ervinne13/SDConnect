@@ -48,8 +48,8 @@
     </head>
     <!-- END Head -->
 
-    <body class="{{$pageLayout or "sidebar-full-height"}}">
-
+    <body class="{{$pageLayout or "sidebar-full-height"}}">        
+        
         <div class="main-wrap">
             <nav class="navigation">
 

@@ -30,6 +30,8 @@
     <div class="row">
         <div class="col-md-8">            
 
+            @include('views.loader.rainbow')
+            
             <div class="panel panel-default b-a-0 shadow-box">
                 <div class="panel-heading">
                     Task Items (Write questions or activities that the student must accoplish)

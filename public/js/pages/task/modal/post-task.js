@@ -6,6 +6,7 @@ let PostTaskModal = (function() {
     function show() {
         $('#post-task-modal').modal('show');
         loadTasks();
+        alert('test');
     }
 
     function loadTasks() {
