@@ -1,10 +1,16 @@
 
 function showLoading(show) {    
     if (show === false) {
-        setTimeout(function () {
-            $('.page-loader-wrapper').fadeOut();
-        }, 50);               
+        $.unblockUI();   
     } else {
-        $('.page-loader-wrapper').show();
+        $.blockUI({ css: { 
+            border: 'none', 
+            padding: '15px', 
+            backgroundColor: '#000', 
+            '-webkit-border-radius': '10px', 
+            '-moz-border-radius': '10px', 
+            opacity: .5, 
+            color: '#fff' 
+        } });           
     }
 }

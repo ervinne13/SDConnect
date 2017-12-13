@@ -22,7 +22,7 @@
             $('.panel'),
         ];
         
-        rainbow.showLoading(true, affectedElements);
+        // rainbow.showLoading(true, affectedElements);        
 
     });
 
@@ -68,11 +68,11 @@
 
         $('#action-save-post').click(function () {
             getSaveTaskRequest()
-                    .done(response => {
-                        console.log(response);
-                        swal('Success', 'Task Saved', 'success');
+                    .done(savedTask => {
+                        console.log(savedTask);
+                        // swal('Success', 'Task Saved', 'success');
 
-                        PostTaskModal.show();
+                        PostTaskModal.show(savedTask);
 
                     })
                     .fail(xhr => {
@@ -82,7 +82,7 @@
                         showLoading(false);
                     });
 
-            showLoading(true);
+            showLoading();
         });
 
     }

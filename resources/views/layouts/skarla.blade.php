@@ -107,7 +107,10 @@
         <!--Compiled version of skarla/js/app scripts-->        
         <script src="{{skarla_js_url("app.min.e05f769f.js")}}"></script>               
         <script src="{{skarla_js_url("plugins-init.js")}}"></script>
-        <script src="{{skarla_js_url("switchery-settings.js")}}"></script>                       
+        <script src="{{skarla_js_url("switchery-settings.js")}}"></script>    
+
+        <script src="{{url("vendor/jquery-blockui/jquery.blockUI.js")}}"></script>                       
+        <script src="{{url("js/helpers.js")}}"></script>                       
 
         <script>
             //  setup ajax

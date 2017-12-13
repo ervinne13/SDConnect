@@ -3,17 +3,20 @@ let PostTaskModal = (function() {
 
     "use strict";
 
-    function show() {
+    function show(task) {
         $('#post-task-modal').modal('show');
-        loadTasks();
-        alert('test');
+        loadTasks(task);        
     }
 
-    function loadTasks() {
+    function loadTasks(task) {
         getTasksRequest()
             .done(tasks => {
                 console.log(tasks);
                 displayTasks(tasks);
+
+                if (task && task.id) {            
+                    $('#post-task-modal [name=task_id]').val(task.id);
+                }
             })
             .fail(xhr => {
                 console.error(xhr);
