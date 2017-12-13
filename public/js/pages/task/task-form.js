@@ -22,7 +22,7 @@
             $('.panel'),
         ];
         
-        // rainbow.showLoading(true, affectedElements);        
+        PostTaskModal.show();
 
     });
 

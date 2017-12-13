@@ -5,8 +5,14 @@ let PostTaskModal = (function() {
 
     function show(task) {
         $('#post-task-modal').modal('show');
-        loadTasks(task);        
-    }
+        loadTasks(task);  
+        initEvents();
+
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        elems.forEach(function(html) {
+            var switchery = new Switchery(html);
+        });
+    }    
 
     function loadTasks(task) {
         getTasksRequest()
@@ -27,9 +33,53 @@ let PostTaskModal = (function() {
         $('#post-task-modal [name=task_id]').html('');
     }
 
+    function savePost() {
+        //  TODO: Validate post
+        getSavePostRequest()
+            .done(response => {
+                console.log(response);
+                swal('Success', 'Task Posted', 'success');
+
+                setTimeout(function() {
+                    window.location.href = baseUrl + '/group/' + group.code;
+                });
+            }).fail(xhr => {
+                console.error(xhr);
+                swal('Error', xhr.responseText, 'error');
+            }).always(() => {
+                showLoading(false);
+            });
+
+        showLoading();
+    }
+
+    function initEvents() {        
+        $('#action-post').click(savePost);
+    }
+
     function getTasksRequest() {
         let url = baseUrl + '/task/json';
         return $.get(url);
+    }
+
+    function getSavePostRequest() {
+        let url = baseUrl + '/post';
+        let post = getPostFromFields();
+
+        return $.post(url, post);
+    }
+
+    function getPostFromFields() {
+        let relativeUrl = baseUrl + '/task/' + $('#task-post-form [name=task_id]').val();
+
+        return {
+            group: group,
+            module: 'Task',
+            relativeUrl: relativeUrl,
+            includeInCalendar: $('#show-in-calendar').is(":checked"),
+            content: $('#new-post-textarea').val(),
+            dateTimeTo: $('[name=date_time_to]').val()
+        };
     }
 
     function displayTasks(tasks) {        

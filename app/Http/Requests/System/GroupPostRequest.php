@@ -64,6 +64,7 @@ class GroupPostRequest extends FormRequest implements RequestToModelTransforming
 
     public function modifyInput($input): array
     {
+        $input["relative_url"] = $input['relativeUrl'];
         $input["include_in_calendar"] = $input['includeInCalendar'];
         $input["date_time_from"]      = value_at_key($input, 'dateTimeFrom', Carbon::now()->format("Y-m-d H:i:s"));
         $input["date_time_to"]        = value_at_key($input, 'dateTimeTo', Carbon::now()->format("Y-m-d H:i:s"));

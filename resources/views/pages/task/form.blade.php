@@ -65,8 +65,8 @@
                     @include('pages.task.partials.task-header-form')
 
                     <div class="pull-right">
-                        <button id="action-save-post" type="button" class="action-button btn-sm btn btn-success">Save & Post</button>
-                        <button id="action-save-only" type="button" class="action-button btn-sm btn btn-primary">Save Without Posting</button>
+                        <button id="action-save-post" type="button" class="action-button btn-sm btn btn-success"><i class="fa fa-save"></i> Save & Post</button>
+                        <button id="action-save-only" type="button" class="action-button btn-sm btn btn-primary"><i class="fa fa-save"></i> Save Without Posting</button>
                         <a href="{{url('/group/' . $group->code)}}" class="btn btn-sm btn bg-grey">Close</a>
                     </div>
                 </div>
