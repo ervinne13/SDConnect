@@ -17,6 +17,7 @@ class PostViewController {
         this.template = {
             postContainer: _.template($('#post-container-template').html()),
             post: _.template($('#group-note-template').html()),
+            task: _.template($('#group-task-template').html()),
 //            event: _.template($('#group-event-template').html()),
 //            assigment: _.template($('#group-assigment-template').html()),
 //            quiz: _.template($('#group-quiz-template').html())           
@@ -111,8 +112,12 @@ class PostViewController {
 
     getTemplateFromPost(post) {
         switch (post.module) {
-            case'Post':
+            case 'Post':
                 return this.template.post;
+            case 'Task':
+                return this.template.task;
+            default:
+                throw new Error('Unsupported post type ' + post.module);
         }
     }
 

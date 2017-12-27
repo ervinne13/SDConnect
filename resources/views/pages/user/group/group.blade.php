@@ -1,4 +1,4 @@
-<?php $uses = ["datepicker", "timepicker", "icheck", "fullcalendar"]; ?>
+<?php $uses = ["datepicker", "timepicker", "icheck", "fullcalendar", "sg-formatter"]; ?>
 
 @extends('layouts.skarla')
 
@@ -18,8 +18,7 @@
 
 @section('js')
 <script>
-let group = {!! $group !!}
-;
+let group = {!! $group !!};
 </script>
 
 @include('pages.user.group.templates.post-container-template')
