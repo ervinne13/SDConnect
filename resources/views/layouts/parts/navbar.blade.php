@@ -41,7 +41,7 @@
                 @include('layouts.parts.navbar.user-group-selection-dropdown')                
                 <li>
                     <a href="javascript: void(0)" role="button">
-                        <i class="fa fa-folder-open"></i> File Management
+                        <i class="fa fa-folder-open"></i> Materials
                     </a>
                 </li>
                 @endif
