@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Modules\System;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Modules\Material\Material;
+use Illuminate\Http\Request;
 
 class MaterialController extends Controller
 {
@@ -24,7 +25,8 @@ class MaterialController extends Controller
      */
     public function create()
     {
-        //
+        $material = new Material();
+        return view('pages.material.form', $material);
     }
 
     /**
