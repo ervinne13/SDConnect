@@ -17,7 +17,16 @@
                     </a>
                 </div>
                 <div class="panel-body">
-                    
+                    <div class="col-md-4 col-md-offset-8">
+                        <div class="input-group input-group-sm pull-left p-10">
+                            <input type="text" class="form-control" placeholder="Filter materials...">
+                            <span class="input-group-btn">
+                                <button id="action-filter" class="btn btn-primary" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>       
