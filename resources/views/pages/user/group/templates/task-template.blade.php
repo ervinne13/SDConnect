@@ -18,7 +18,7 @@
                         <a href="<%= relative_url %>">View This Task</a>
                     </p>
                     <p>
-                        <a href="{{url('group/' . $group->code . '/tasks')}}">View All Tasks</a>
+                        <!-- <a href="{{url('group/group.code/tasks')}}">View All Tasks</a> -->
                     </p>                    
                 </span>
             </div>
