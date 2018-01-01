@@ -21,8 +21,7 @@ class CreateTaskItemTable extends Migration
             $table->integer('order')->unsigned();
             $table->string('type_code')
                 ->comment('Type Code: (MC) Multiple Choice, (TF) True or False, (FB) Fill in the Blanks, (ATT) Attachment, (E) Essay');
-            $table->integer('points')->unsigned();
-            $table->string('task_item_name', 30);
+            $table->integer('points')->unsigned();            
             $table->text('task_item_text');
             $table->text('choices_json');
             $table->text('correct_answer_free_field');
