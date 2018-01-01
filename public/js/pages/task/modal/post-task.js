@@ -8,7 +8,7 @@ let PostTaskModal = (function() {
         loadTasks(task);  
         initEvents();
 
-        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        var elems = Array.prototype.slice.call(document.querySelectorAll('#show-in-calendar'));
         elems.forEach(function(html) {
             var switchery = new Switchery(html);
         });
