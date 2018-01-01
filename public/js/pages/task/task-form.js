@@ -15,14 +15,7 @@
         initInterComponentEvents();
         initEvents();
 
-        initDummyTaskItems();
-        
-        let affectedElements = [
-            $('.main-wrap'),
-            $('.panel'),
-        ];
-        
-        PostTaskModal.show();
+//        initDummyTaskItems();
 
     });
 
@@ -110,7 +103,7 @@
     function getTaskData() {
         return {
             display_name: $('[name=display_name]').val(),
-            type_code: $('[name=type_code]').val(),
+            type_code: $('#task-form [name=type_code]').val(),
             randomizes_tasks: $('[name=randomizes_tasks]').is(':checked'),
             description: $('[name=description]').val(),
             task_items: taskItemListView.getTaskItemsByOrder(),

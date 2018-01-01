@@ -21,9 +21,10 @@ class CreatePostTable extends Migration
             $table->string('author_username', 30)->index();
             $table->string('group_code', 30)->index();
             $table->boolean('include_in_calendar')->default(false);
-            $table->string('module');
-            $table->string('calendar_color')->nullable();
-            $table->string('relative_url')->nullable();
+            $table->string('module', 30);
+            $table->string('calendar_color', 30)->nullable();
+            $table->string('relative_url', 100)->nullable();
+            $table->string('related_data_id', 30)->nullable();
             $table->dateTime('date_time_from');
             $table->dateTime('date_time_to');
             $table->text('content');

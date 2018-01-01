@@ -1,4 +1,4 @@
-<form id="group-form" class="fields-container">
+<form id="task-form" class="fields-container">
 
     {{ csrf_field() }}
 

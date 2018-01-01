@@ -24,7 +24,7 @@ class TaskItemListView {
         $(document).on('click', '.task-item-list-item', function () {
             let id = $(this).data('id');
             let taskItem = self.taskItemMap[id];
-            
+
             if (self.onTaskItemListItemClickedCallback) {
                 self.displayTaskItem(taskItem);
                 self.onTaskItemListItemClickedCallback(taskItem);
@@ -61,7 +61,7 @@ class TaskItemListView {
 
         this.lastTaskId++;
 
-        this.elContainer.append(this._taskItemListItemTemplate(taskItem));        
+        this.elContainer.append(this._taskItemListItemTemplate(taskItem));
     }
 
     getTaskItemById(taskId) {
@@ -84,9 +84,11 @@ class TaskItemListView {
     saveTaskItem(taskItem) {
         this.taskItemMap[taskItem.id] = taskItem;
 
+        let order = 0;
         for (let i in this.taskItemsByOrder) {
             if (this.taskItemsByOrder[i].id == taskItem.id) {
                 this.taskItemsByOrder[i] = taskItem;
+                this.taskItemsByOrder[i].order = ++order;
                 break;
             }
         }
@@ -109,7 +111,7 @@ class TaskItemListView {
         return vanilla.isObjectEmpty(this.taskItemMap);
     }
 
-    onTaskItemListItemClicked(callback) {       
+    onTaskItemListItemClicked(callback) {
         this.onTaskItemListItemClickedCallback = callback;
     }
 

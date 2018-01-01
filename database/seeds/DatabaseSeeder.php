@@ -22,6 +22,9 @@ class DatabaseSeeder extends Seeder
             $this->call(DefaultUsersSeeder::class);
             $this->call(DefaultGroupSeeder::class);
 
+            $this->call(SampleClassSeeder::class);
+            $this->call(SampleTaskSeeder::class);
+
             DB::commit();
         } catch ( Exception $e ) {
             DB::rollBack();
