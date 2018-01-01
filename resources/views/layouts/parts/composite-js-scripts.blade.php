@@ -51,7 +51,7 @@
 <script src="{{url("js/form-utilities.js")}}"></script>
 
 <!--Switchery-->
-<script src="{{url("vendor/bower_components/switchery/dist/switchery.min.js")}}"></script>
+<!--<script src="{{url("vendor/bower_components/switchery/dist/switchery.min.js")}}"></script>-->
 @endif
 
 @endif

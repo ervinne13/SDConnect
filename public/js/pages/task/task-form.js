@@ -15,14 +15,7 @@
         initInterComponentEvents();
         initEvents();
 
-        initDummyTaskItems();
-        
-        let affectedElements = [
-            $('.main-wrap'),
-            $('.panel'),
-        ];
-        
-        PostTaskModal.show();
+//        initDummyTaskItems();
 
     });
 
