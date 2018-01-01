@@ -18,6 +18,7 @@ class Post extends Model
         "module",
         "calendar_color",
         "relative_url",
+        "related_data_id",
         "date_time_from",
         "date_time_to",
         "content"
