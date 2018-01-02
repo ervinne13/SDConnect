@@ -23,18 +23,26 @@
                     {{$task->display_name}}
                 </div>
                 <div class="panel-body">
-                    @php $order = 1; @endphp
+                    @php $order = 0; @endphp
 
                     @foreach($task->items as $taskItem)
 
-                    @if ($taskItem->type_code === 'MC')
-                    @include('pages.task.partials.task-item-mc', [
-                        'order' => $order,
-                        'taskItem' => $taskItem
-                    ])
-                    @endif
+                        @php
+                            if ($taskItem->type_code === 'MC') {
+                                $template = 'pages.task.partials.task-item-mc';
+                            } else if ($taskItem->type_code === 'TF') {
+                                $template = 'pages.task.partials.task-item-tf';
+                            }
 
-                    @php $order++; @endphp
+                            $order++;
+                        @endphp
+
+                        @if ($template)
+                            @include($template, [
+                                'order' => $order,
+                                'taskItem' => $taskItem
+                            ])
+                        @endif
 
                     @endforeach
                 </div>
