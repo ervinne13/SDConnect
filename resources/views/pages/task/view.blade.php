@@ -23,23 +23,32 @@
                     {{$task->display_name}}
                 </div>
                 <div class="panel-body">
-                    @php $order = 0; @endphp
+                    @php 
+                    $orderDisplay = 0; 
 
-                    @foreach($task->items as $taskItem)
+                    $taskItems = $task->items;
+                    if ($task->randomizes_tasks) {                    
+                        $taskItems = $taskItems->shuffle();
+                    }
+                    @endphp
+
+                    @foreach($taskItems as $taskItem)
 
                         @php
                             if ($taskItem->type_code === 'MC') {
                                 $template = 'pages.task.partials.task-item-mc';
                             } else if ($taskItem->type_code === 'TF') {
                                 $template = 'pages.task.partials.task-item-tf';
+                            } else {
+                                $template = null;
                             }
 
-                            $order++;
+                            $orderDisplay++;
                         @endphp
 
                         @if ($template)
                             @include($template, [
-                                'order' => $order,
+                                'orderDisplay' => $orderDisplay,
                                 'taskItem' => $taskItem
                             ])
                         @endif

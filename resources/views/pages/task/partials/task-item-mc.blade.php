@@ -1,5 +1,5 @@
 <div>
-    <p>{{$order}}. {{$taskItem->task_item_text}} ({{$taskItem->points}} Point(s))</p>
+    <p>{{$orderDisplay}}. {{$taskItem->task_item_text}} ({{$taskItem->points}} Point(s))</p>
 
     @php
     $choices = json_decode($taskItem->choices_json);
