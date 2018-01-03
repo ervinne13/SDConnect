@@ -51,6 +51,10 @@
             <!-- START Right Side Navbar -->
             <ul class="nav navbar-nav navbar-right">
 
+                <li class="dropdown">
+                    @include('layouts.parts.navbar.tasks')
+                </li>
+
                 <li role="separator" class="divider hidden-lg hidden-md hidden-sm"></li>
 
                 @if (Auth::check())

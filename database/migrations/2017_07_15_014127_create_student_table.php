@@ -18,7 +18,7 @@ class CreateStudentTable extends Migration {
             $table->string('student_number', 30);
             $table->string('user_account_username', 30);
             $table->boolean('is_active')->default(true);
-            $table->text('about');
+            $table->text('about')->nullable();
             $table->timestamps();
 
             $table->primary('student_number');
