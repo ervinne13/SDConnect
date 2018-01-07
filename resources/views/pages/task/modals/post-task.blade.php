@@ -26,11 +26,6 @@
                       <textarea id="new-post-textarea" class="form-control" placeholder="Text to display in the post"></textarea>
                   </div>
 
-                  <div class="form-group">
-                      <label class="control-label">Deadline</label>
-                      <input required readonly name="date_time_to" type="date" class="form-control">
-                  </div>
-
               </div>
           </div> 
 
