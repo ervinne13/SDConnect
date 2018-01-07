@@ -17,7 +17,7 @@ class SampleStudentSeeder extends Seeder
         factory(UserAccount::class, 50)->create()->each(function ($userAccount) {
             $userAccount->student()->save(factory(Student::class)->make());
             DB::table('group_member')->insert([
-                'user_account_username' => $userAccount,
+                'user_account_username' => $userAccount->username,
                 'group_code'            => 'IT-2017'
             ]);
         });

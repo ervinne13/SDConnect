@@ -87,7 +87,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $task    = Task::find($id);
+        $task    = Task::withStudentNumberOfUser(Auth::user())->find($id);
         $student = Auth::user()->student()->first();
 
         return view('pages.task.view', [
@@ -135,6 +135,11 @@ class TaskController extends Controller
             $student = Auth::user()->student()->first();
 
             DB::table('student_response')
+                ->whereTaskId($taskId)
+                ->whereStudentNumber($student->student_number)
+                ->delete();
+
+            DB::table('student_task_completed')
                 ->whereTaskId($taskId)
                 ->whereStudentNumber($student->student_number)
                 ->delete();

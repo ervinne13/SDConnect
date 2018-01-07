@@ -4,13 +4,14 @@
 
 @section('js')
 
+<script src="{{url("js/pages/task/task-view.js")}}"></script>
+
 <script>
 
-    let task = {!! $task !!}
-    ;
+    let task = {!! $task !!};
 
 </script>
-
+@endsection
 
 @section('content')
 <div class="container">
@@ -19,7 +20,7 @@
 
             @include('views.loader.rainbow')
 
-            <form method="POST" action="{{url('task/' . $task->id . '/submit-answers')}}">
+            <form id="task-form" method="POST" action="{{url('task/' . $task->id . '/submit-answers')}}" style="display: none">
             
                 {{csrf_field()}}
                 
