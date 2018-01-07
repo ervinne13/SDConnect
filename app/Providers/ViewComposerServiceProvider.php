@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\ViewComposers\Calendar\CalendarViewComposer;
 use App\ViewComposers\SkarlaViewComposer;
+use App\ViewComposers\User\Group\TasksNotificationViewComposer;
 use App\ViewComposers\User\Group\UserGroupSelectionDropdownViewComposer;
 use Illuminate\Support\ServiceProvider;
 use function view;
@@ -22,6 +23,8 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         $this->composeUserGroupViews();
         $this->composeCalendarViews();
+
+        view()->composer('layouts.parts.navbar.tasks', TasksNotificationViewComposer::class);
     }
 
     protected function composeUserGroupViews()

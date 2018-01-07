@@ -52,7 +52,9 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <li class="dropdown">
+                    @if (Auth::check() && Auth::user()->student)
                     @include('layouts.parts.navbar.tasks')
+                    @endif
                 </li>
 
                 <li role="separator" class="divider hidden-lg hidden-md hidden-sm"></li>

@@ -23,6 +23,7 @@ class SampleTaskSeeder extends Seeder
             $task->time_limit_minutes = 30;
             $task->display_name       = 'Exam 001 (Demo)';
             $task->description        = 'This is a test exam with 30 mins time limit';
+            $task->deadline           = '2018-01-10';
 
             $task->type_code = 'E';
 
