@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Modules\System;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\System\Task\SaveTaskRequest;
 use App\Modules\System\Group\Repository\GroupRepository;
+use App\Modules\System\Post\Post;
 use App\Modules\System\Task\Repository\TaskRepository;
 use App\Modules\System\Task\Task;
 use App\Modules\System\Task\TaskItem;
@@ -14,6 +15,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use function handle_controller_exception;
+use function redirect;
 use function view;
 
 class TaskController extends Controller
@@ -43,7 +45,14 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::where('module', 'Task')
+            ->with('group')
+            ->with(['task' => function($query) {
+            $query->withStudentNumberOfUser(Auth::user());
+        }])->get();
+                
+//        $tasks = Task::with('post')->withStudentNumberOfUser(Auth::user())->get();
+        return view('pages.task.index', ['posts' => $posts]);
     }
 
     /**

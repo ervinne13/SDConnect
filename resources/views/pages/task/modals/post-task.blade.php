@@ -28,8 +28,8 @@
 
                   <div class="form-group">
                       <label class="control-label">Deadline</label>
-                      <input required name="date_time_to" type="date" class="form-control">
-                  </div>                 
+                      <input required readonly name="date_time_to" type="date" class="form-control">
+                  </div>
 
               </div>
           </div> 

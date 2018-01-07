@@ -3,6 +3,7 @@
 namespace App\Modules\System\Post;
 
 use App\Modules\System\Group\Group;
+use App\Modules\System\Task\Task;
 use App\Modules\System\User\UserAccount;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
@@ -37,6 +38,11 @@ class Post extends Model
     public function author()
     {
         return $this->belongsTo(UserAccount::class, "author_username");
+    }
+
+    public function task()
+    {
+        return $this->belongsTo(Task::class, 'related_data_id');
     }
 
     // </editor-fold>
