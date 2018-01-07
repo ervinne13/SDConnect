@@ -16,18 +16,25 @@
             <ul class="list-group m-b-0 b-b-0">
                 <li class="list-group-item b-r-0 b-l-0 b-r-0 b-t-r-0  b-t-l-0 b-b-2 w-350">
                     <small class="text-uppercase">
-                        <strong>Notifications</strong>
+                        <strong>Tasks</strong>
                     </small>
-                    <a role="button" href="../apps/settings-edit.html" class="btn m-t-0 btn-xs btn-default pull-right">
-                        <i class="fa fa-fw fa-gear"></i>
-                    </a>
                 </li>
 
                 <!-- START Scroll Inside Panel -->
                 <li class="list-group-item b-a-0 p-x-0 p-y-0 b-t-0">
                     <div class="scroll-300 custom-scrollbar ps-container ps-theme-default" data-ps-id="7b107e6f-c2c4-a04a-e075-743a7512b50c">
 
-                        @foreach($tasks as $task)
+                        @if (count($tasks) <= 0)
+                        <div class="media">
+                            <div class="media-body" style="padding: 10px;">
+                                <p>
+                                    <b>Nice!</b> You don't currently have any tasks pending
+                                </p>
+                            </div>
+                        </div>
+                        @endif
+
+                        @foreach($tasks as $task)                        
                         <a href="{{url('task/' . $task->id)}}" class="list-group-item b-r-0 b-l-0">
                             <div class="media">
                                 <div class="media-left">
@@ -38,7 +45,8 @@
                                 </div>
                                 <div class="media-body">
                                     <h5 class="m-t-0">
-                                        <span>{{$task->post->content}}</span>
+                                        <b>{{task_type_name($task->type_code)}}: {{$task->display_name}}</b>
+                                        <p>{{$task->post->content}}</p>
                                     </h5>
                                     <p class="text-nowrap small m-b-0">
                                         <span>05-Sep-2014, 05:01</span>
@@ -57,11 +65,11 @@
                         See All Tasks <i class="fa fa-angle-right"></i>
                     </a>
                 </li>
-<!--                <li class="list-group-item b-a-0 p-x-0 p-y-0 r-a-0 b-b-0">
-                    <a class="list-group-item text-center b-r-0 b-b-0 b-l-0 b-r-b-r-0 b-r-b-l-0" href="../pages/timeline.html">
-                        See All Open Tasks <i class="fa fa-angle-right"></i>
-                    </a>
-                </li>-->
+                <!--                <li class="list-group-item b-a-0 p-x-0 p-y-0 r-a-0 b-b-0">
+                                    <a class="list-group-item text-center b-r-0 b-b-0 b-l-0 b-r-b-r-0 b-r-b-l-0" href="../pages/timeline.html">
+                                        See All Open Tasks <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </li>-->
             </ul>
         </div>
 

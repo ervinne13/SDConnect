@@ -25,7 +25,13 @@
                                 <span class="media-heading text-gray-darker">Created by {{$post->author->display_name}}</span>
                                 <br>
                                 <span class="media-heading">
-                                    <b>Group: {{$post->group->display_name}}</b>
+                                    <p>
+                                        <b>Group: <span  style="color: rgb(100, 189, 99);">{{$post->group->display_name}}</span></b>
+                                    </p>
+
+                                    <p>
+                                        <b>{{task_type_name($post->task->type_code)}}: <span  style="color: rgb(100, 189, 99);">{{$post->task->display_name}}</span></b>
+                                    </p>
 
                                     <p>{{$post->content}}</p>
                                 </span>

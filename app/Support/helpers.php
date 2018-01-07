@@ -111,11 +111,32 @@ if ( !function_exists('handle_controller_exception') ) {
 
     function handle_controller_exception(\Exception $e)
     {
-        if (env('APP_DEBUG', false)) {
+        if ( env('APP_DEBUG', false) ) {
             throw $e;
         } else {
             return response($e->getMessage(), 500);
         }
+    }
+
+}
+
+if ( !function_exists('task_type_name') ) {
+
+    function task_type_name($typeCode)
+    {
+        switch ( $typeCode ) {
+            case 'A':
+                $taskTypeName = 'Assignment';
+                break;
+            case 'E':
+                $taskTypeName = 'Exam';
+                break;
+            case 'Q':
+                $taskTypeName = 'Quiz';
+                break;
+        }
+
+        return $taskTypeName;
     }
 
 }
