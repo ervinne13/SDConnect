@@ -7,9 +7,13 @@ use App\Http\Requests\System\Task\SaveTaskRequest;
 use App\Modules\System\Group\Repository\GroupRepository;
 use App\Modules\System\Task\Repository\TaskRepository;
 use App\Modules\System\Task\Task;
+use App\Modules\System\Task\TaskItem;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use function handle_controller_exception;
 use function view;
 
 class TaskController extends Controller
@@ -28,7 +32,7 @@ class TaskController extends Controller
     }
 
     public function listAllJson()
-    {        
+    {
         return Task::all();
     }
 
@@ -70,7 +74,7 @@ class TaskController extends Controller
         try {
             $savedTask = $repo->saveWithHttpRequest($request);
             return $savedTask;
-        } catch(Exception $e) {
+        } catch ( Exception $e ) {
             return handle_controller_exception($e);
         }
     }
@@ -83,10 +87,12 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $task = Task::find($id);
+        $task    = Task::find($id);
+        $student = Auth::user()->student()->first();
 
         return view('pages.task.view', [
-            'task' => $task
+            'task'    => $task,
+            'student' => $student,
         ]);
     }
 
@@ -114,6 +120,49 @@ class TaskController extends Controller
     }
 
     /**
+     * TODO: refactor - this will be redone in CI anyway so don't bother with models
+     * and repositories anymore
+     * @param Request $request
+     * @param type $taskId
+     * @return type
+     */
+    public function submitAnswers(Request $request, $taskId)
+    {
+        $answers = $request->except('_token');
+
+        DB::transaction(function() use ($answers, $taskId) {
+
+            $student = Auth::user()->student()->first();
+
+            DB::table('student_response')
+                ->whereTaskId($taskId)
+                ->whereStudentNumber($student->student_number)
+                ->delete();
+
+            foreach ( $answers as $key => $studentAnswer ) {
+                $order  = str_replace('task_item_', '', $key);
+                $points = -1;
+
+                $taskItem = TaskItem::findComposite($taskId, $order);
+
+                if ( !$taskItem ) {
+                    throw new Exception('Task item order ' . $order . ' not found');
+                }
+
+                DB::table('student_response')->insert([
+                    'student_number'    => $student->student_number,
+                    'task_id'           => $taskId,
+                    'task_item_order'   => $order,
+                    'points'            => $this->getTaskItemPoints($taskItem, $studentAnswer),
+                    'answer_free_field' => $studentAnswer
+                ]);
+            }
+        });
+
+        return $request->all();
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -122,6 +171,32 @@ class TaskController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getTaskItemPoints(TaskItem $taskItem, $studentAnswer)
+    {
+        $correctAnswer = trim($taskItem->correct_answer_free_field);
+
+        if ( $taskItem->type_code != 'MC' ) {
+            $points = $correctAnswer == trim($studentAnswer) ? $taskItem->points : 0;
+        }
+
+        switch ( $taskItem->type_code ) {
+            case 'MC':
+                $points       = $correctAnswer == trim($studentAnswer) ? $taskItem->points : 0;
+                break;
+            case 'TF':
+                $correctTrue  = $correctAnswer == 1 && trim($studentAnswer) == 'true';
+                $correctFalse = $correctAnswer == 0 && trim($studentAnswer) == 'false';
+                if ( $correctTrue || $correctFalse ) {
+                    $points = $taskItem->points;
+                } else {
+                    $points = 0;
+                }
+                break;
+        }
+
+        return $points;
     }
 
 }
