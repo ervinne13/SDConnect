@@ -13,6 +13,8 @@ use App\Modules\System\User\UserAccount;
 interface UserRepository extends BaseRespository
 {    
     
+    function createStudent($attributesOrModel, $studentNumber);
+    
     function assignRole(UserAccount $user, Role $role);
 
     function unassignRoles(UserAccount $user, array $roleCodes);

@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
 
             $this->call(SampleClassSeeder::class);
             $this->call(SampleTaskSeeder::class);
+            
+            $this->call(SampleStudentSeeder::class);
 
             DB::commit();
         } catch ( Exception $e ) {

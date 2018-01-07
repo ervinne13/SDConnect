@@ -13,6 +13,7 @@ class TaskItem extends Model
         'FB'  => 'Fill in the Blanks',
         'ATT' => 'Attachment',
         'E'   => 'Essay',
+        'FE'  => 'Free Answer',
     ];
 
     protected $table    = 'task_item';
@@ -21,6 +22,11 @@ class TaskItem extends Model
     public function scopeTask($query, $id)
     {
         return $query->where('task_id', $id);
+    }
+
+    public static function findComposite($taskId, $order)
+    {
+        return TaskItem::whereTaskId($taskId)->whereOrder($order)->first();
     }
 
 }

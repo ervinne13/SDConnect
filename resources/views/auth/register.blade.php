@@ -35,6 +35,16 @@
                                     </span>
                                     @endif
                                 </div>
+                                <div class="form-group {{ $errors->has('student_number') ? ' has-error' : '' }}">
+                                    <label>Student Number</label>
+                                    <input name="student_number" class="form-control" value="{{ old('student_number') }}" placeholder="Enter your student number...">
+
+                                    @if ($errors->has('student_number'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('student_number') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
                                 <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
                                     <label>Password</label>
                                     <input name="password" type="password" class="form-control" value="{{ old('password') }}" placeholder="Enter a Password...">

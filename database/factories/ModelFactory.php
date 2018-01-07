@@ -12,12 +12,12 @@
  */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(\App\Modules\System\User\UserAccount::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'name'           => $faker->name,
-        'email'          => $faker->unique()->safeEmail,
+        'display_name'   => $faker->name,
+        'username'       => $faker->userName,
         'password'       => $password ?: $password        = bcrypt('secret'),
         'remember_token' => str_random(10),
     ];
@@ -39,5 +39,12 @@ $factory->define(App\Modules\System\Post\Post::class, function (Faker\Generator 
         'date_time_from'  => $startingDate,
         'date_time_to'    => $startingDate,
         'content'         => $faker->sentence,
+    ];
+});
+
+$factory->define(\App\Modules\System\User\Student::class, function(Faker\Generator $faker) {
+
+    return [
+        'student_number' => '2017-' . random_int(10001, 99999),
     ];
 });

@@ -39,6 +39,11 @@ class UserAccount extends Authenticatable
         return $this->belongsToMany(Role::class, "user_account_role", "user_account_username", "role_code");
     }
 
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'user_account_username');
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Functions">
 
     public function getSerializedRoleNames()
@@ -88,7 +93,7 @@ class UserAccount extends Authenticatable
     }
 
     public function getImageUrl()
-    {        
+    {
         return $this->image_url;
     }
 

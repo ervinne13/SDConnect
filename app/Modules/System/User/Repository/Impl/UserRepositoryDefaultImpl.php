@@ -5,9 +5,11 @@ namespace App\Modules\System\User\Repository\Impl;
 use App\Modules\Base\Impl\BasicBaseRepository;
 use App\Modules\System\Group\Repository\GroupRepository;
 use App\Modules\System\Role\Role;
+use App\Modules\System\User\Student;
 use App\Modules\System\User\UserAccount;
 use App\Modules\System\User\UserAccountRole;
 use App\Modules\User\System\Repository\UserRepository;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Description of UserRepositoryDefaultImpl
@@ -45,13 +47,23 @@ class UserRepositoryDefaultImpl extends BasicBaseRepository implements UserRepos
             ->delete();
     }
 
-    public function create($attributesOrModel)
+    public function createStudent($attributesOrModel, $studentNumber)
     {
-        $user = parent::create($attributesOrModel);
+        return DB::transaction(function() use ($attributesOrModel, $studentNumber) {
+                $user = parent::create($attributesOrModel);
 
-        $this->groupRepo->joinToAllSystemGeneratedGroups($user->getUsername());
+                $student = new Student();
 
-        return $user;
+                $student->student_number        = $studentNumber;
+                $student->is_active             = true;
+                $student->user_account_username = $user->username;
+
+                $student->save();
+
+                $this->groupRepo->joinToAllSystemGeneratedGroups($user->getUsername());
+
+                return $user;
+            });
     }
 
 }

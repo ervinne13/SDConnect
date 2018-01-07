@@ -21,6 +21,7 @@ class CreateTaskTable extends Migration
             $table->boolean('randomizes_tasks')->default(false);
             $table->integer('time_limit_minutes')->unsigned()->default(0);
             $table->string('display_name', 30)->unique();
+//            $table->dateTime('deadline');
             $table->string('description');
             $table->string('type_code', 3)->comment('(A)ssignment, (Q)uiz, (E)xam');
             $table->timestamps();

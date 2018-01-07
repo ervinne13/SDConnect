@@ -8,7 +8,7 @@
 
     or
 
-    <a href="#">
+    <a id="action-reuse-task" href="javascript:;">
         <i class="fa fa-refresh"></i>
         Load Existing Task
     </a>
