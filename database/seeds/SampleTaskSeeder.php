@@ -65,6 +65,8 @@ class SampleTaskSeeder extends Seeder
             $post->date_time_to        = '2018-01-10';
             $post->content             = 'Exam for first quarter, please submit on or before the due date';
             $post->save();
+
+            DB::table('group_task')->insert(['group_code' => $post->group_code, 'task_id' => $task->id]);
         });
     }
 
