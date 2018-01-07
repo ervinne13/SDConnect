@@ -139,27 +139,38 @@ class TaskController extends Controller
                 ->whereStudentNumber($student->student_number)
                 ->delete();
 
-            foreach ( $answers as $key => $studentAnswer ) {
-                $order  = str_replace('task_item_', '', $key);
-                $points = -1;
+            $totalPoints = 0;
 
+            foreach ( $answers as $key => $studentAnswer ) {
+                $order    = str_replace('task_item_', '', $key);
                 $taskItem = TaskItem::findComposite($taskId, $order);
 
                 if ( !$taskItem ) {
                     throw new Exception('Task item order ' . $order . ' not found');
                 }
 
+                $points = $this->getTaskItemPoints($taskItem, $studentAnswer);
+
                 DB::table('student_response')->insert([
                     'student_number'    => $student->student_number,
                     'task_id'           => $taskId,
                     'task_item_order'   => $order,
-                    'points'            => $this->getTaskItemPoints($taskItem, $studentAnswer),
+                    'points'            => $points,
                     'answer_free_field' => $studentAnswer
                 ]);
+
+                $totalPoints += $points;
             }
+
+            DB::table('student_task_completed')->insert([
+                'student_number' => $student->student_number,
+                'task_id'        => $taskId,
+                'points'         => $totalPoints,
+            ]);
         });
 
-        return $request->all();
+        $request->session()->flash('message', "You've successfully submitted your answers. Please wait for your teacher/instructor to publish the task results.");
+        return redirect('task');
     }
 
     /**

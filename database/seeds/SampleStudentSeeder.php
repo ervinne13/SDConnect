@@ -17,6 +17,18 @@ class SampleStudentSeeder extends Seeder
         factory(UserAccount::class, 50)->create()->each(function ($userAccount) {
             $userAccount->student()->save(factory(Student::class)->make());
         });
+
+        //  fixed sample
+        $juan               = new UserAccount();
+        $juan->username     = 'juan';
+        $juan->display_name = 'Juan Dela Cruz';
+        $juan->password     = bcrypt('secret');
+
+        $juan->save();
+
+        $juanStudent                  = new Student();
+        $juanStudent->student_number = '2018-1312345';
+        $juan->student()->save($juanStudent);
     }
 
 }
