@@ -71,7 +71,8 @@ class PostController extends Controller
 
             return $post;
         } catch ( Exception $ex ) {
-            return response_ajax_error($ex);
+            return response($ex->getMessage(), 500);
+//            return response_ajax_error($ex);
         }
     }
 

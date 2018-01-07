@@ -21,6 +21,8 @@
 let group = {!! $group !!};
 </script>
 
+@include('pages.task.modals.post-task')
+
 @include('pages.user.group.templates.post-container-template')
 @include('pages.user.group.templates.post-template')
 @include('pages.user.group.templates.event-template')
@@ -28,6 +30,7 @@ let group = {!! $group !!};
 
 <script src="{{url("js/pages/user/group/view-controllers/PostViewController.js")}}"></script>
 
+<script src="{{url("js/pages/task/modal/post-task.js")}}"></script>
 <script src="{{url("js/pages/user/group/group.js")}}"></script>
 @endsection
 
@@ -42,11 +45,11 @@ let group = {!! $group !!};
                         <li class="nav-item active">
                             <a class="nav-link" data-toggle="tab" href="#post" role="tab" aria-controls="post">Announcements</a>
                         </li>
-                        <li class="nav-item">
+<!--                        <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#event" role="tab" aria-controls="event">Event</a>
-                        </li>
+                        </li>-->
 
-                        @if ($group->getType() === 'Class')                        
+                        @if ($group->getType() === 'Class' && !Auth::user()->student)                        
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#task" role="tab" aria-controls="task">Graded Task (Quizzes, Assignments, etc.)</a>
                         </li>

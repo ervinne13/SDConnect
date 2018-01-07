@@ -78,9 +78,9 @@ let PostTaskModal = (function () {
             module: 'Task',
             relativeUrl: relativeUrl,
             relatedDataId: relatedDataId,
-            includeInCalendar: $('#show-in-calendar').is(":checked"),
-            content: $('#new-post-textarea').val(),
-            dateTimeTo: $('[name=date_time_to]').val()
+            includeInCalendar: $('#post-task-modal #show-in-calendar').is(":checked"),
+            content: $('#post-task-modal #new-post-textarea').val(),
+            dateTimeTo: $('#post-task-modal [name=date_time_to]').val()
         };
     }
 

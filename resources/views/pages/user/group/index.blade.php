@@ -37,11 +37,13 @@
                     @endforeach    
                 </div>
                 <div class="panel-footer">
+                    @if (!Auth::user()->student)
                     <a class="btn btn-success text-center b-t-1 pull-right" href="{{route('group.create')}}">
                         <i class="fa fa-plus"></i> Create New Group
                     </a>
 
                     <div class="clearfix"></div>
+                    @endif
                 </div>
 
             </div>

@@ -1,5 +1,5 @@
 
-/* global group, app */
+/* global group, app, PostTaskModal */
 
 (function () {
 
@@ -22,6 +22,8 @@
         $('#action-create-post').click(createPost);
 
         $('#action-delete-group').click(deleteGroup);
+        
+        $('#action-reuse-task').click(PostTaskModal.show);
     }
 
     function deleteGroup() {

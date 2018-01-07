@@ -60,11 +60,13 @@
                     </a>
                 </li>
 
+                @if (!Auth::user()->student)
                 <li class="list-group-item b-a-0 p-x-0 b-b-0 p-y-0 r-a-0">
                     <a class="list-group-item text-center b-b-0 b-r-0 b-l-0 b-r-b-r-0 b-r-b-l-0" href="{{url("group/create")}}">
                         <i class="fa fa-plus"></i> Create New Group
                     </a>
                 </li>
+                @endif
             </ul>
 
         </div>

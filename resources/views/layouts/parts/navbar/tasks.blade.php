@@ -53,15 +53,15 @@
 
                 <!-- END Scroll Inside Panel -->
                 <li class="list-group-item b-a-0 p-x-0 p-y-0 r-a-0 b-b-0">
-                    <a class="list-group-item text-center b-r-0 b-b-0 b-l-0 b-r-b-r-0 b-r-b-l-0" href="../pages/timeline.html">
+                    <a class="list-group-item text-center b-r-0 b-b-0 b-l-0 b-r-b-r-0 b-r-b-l-0" href="{{url('task')}}">
                         See All Tasks <i class="fa fa-angle-right"></i>
                     </a>
                 </li>
-                <li class="list-group-item b-a-0 p-x-0 p-y-0 r-a-0 b-b-0">
+<!--                <li class="list-group-item b-a-0 p-x-0 p-y-0 r-a-0 b-b-0">
                     <a class="list-group-item text-center b-r-0 b-b-0 b-l-0 b-r-b-r-0 b-r-b-l-0" href="../pages/timeline.html">
                         See All Open Tasks <i class="fa fa-angle-right"></i>
                     </a>
-                </li>
+                </li>-->
             </ul>
         </div>
 
