@@ -43,5 +43,7 @@ Route::group(['namespace' => 'Modules\System', 'middleware' => ['auth']], functi
     Route::get('task/{taskId}/group/{groupCode}/report', 'TaskController@generateTaskReport');
     Route::resource('task', 'TaskController');
 
+    Route::resource('teachers', 'TeachersController');
+    
     Route::resource('material', 'MaterialController');
 });

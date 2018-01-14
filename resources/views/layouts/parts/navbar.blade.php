@@ -44,6 +44,15 @@
                         <i class="fa fa-folder-open"></i> Materials
                     </a>
                 </li>
+                
+                @if (Auth::user()->isAdmin())
+                <li>
+                    <a href="{{url('/teachers')}}" role="button">
+                        <i class="fa fa-users"></i> Teachers
+                    </a>
+                </li>
+                @endif
+                
                 @endif
             </ul>
             <!-- START Left Side Navbar -->
