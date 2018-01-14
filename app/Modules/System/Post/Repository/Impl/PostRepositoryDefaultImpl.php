@@ -25,19 +25,25 @@ class PostRepositoryDefaultImpl extends BasicBaseRepository implements PostRepos
     public function create($attributesOrModel)
     {
         $group = $attributesOrModel->group_code;
-        $task = $attributesOrModel->related_data_id;
-        
-        if ($attributesOrModel->module == 'Task') {
+        $task  = $attributesOrModel->related_data_id;
+
+        if ( $attributesOrModel->module == 'Task' ) {
             $existingTaskCount = Post::whereGroupCode($group)->whereRelatedDataId($task)->count();
-            
-            if ($existingTaskCount > 0) {
+
+            if ( $existingTaskCount > 0 ) {
                 throw new Exception("You cannot post the same task on the same group. You may only reuse tasks across different groups");
             }
         }
-        
-        parent::create($attributesOrModel);
+
+        DB::transaction(function() use ($attributesOrModel, $group, $task) {
+            parent::create($attributesOrModel);
+
+            if ( $attributesOrModel->module == 'Task' ) {
+                DB::table('group_task')->insert(['group_code' => $group, 'task_id' => $task]);
+            }
+        });
     }
-    
+
     public function getPostsByDateRange(UserAccount $accessibleByUser, $startDate, $endDate, $group = null)
     {
         $query = Post::AccessibleByUsername($accessibleByUser->getUsername())

@@ -44,6 +44,11 @@ class UserAccount extends Authenticatable
         return $this->hasOne(Student::class, 'user_account_username');
     }
 
+    public function teacher()
+    {
+        return $this->hasOne(Teacher::class, 'user_account_username');
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Functions">
 
     public function getSerializedRoleNames()

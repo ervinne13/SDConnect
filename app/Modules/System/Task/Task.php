@@ -2,6 +2,7 @@
 
 namespace App\Modules\System\Task;
 
+use App\Modules\System\Group\Group;
 use App\Modules\System\Post\Post;
 use App\Modules\System\Task\TaskItem;
 use Illuminate\Database\Eloquent\Model;
@@ -36,6 +37,11 @@ class Task extends Model
     public function post()
     {
         return $this->hasOne(Post::class, 'related_data_id')->where('post.module', 'Task');
+    }
+
+    public function groups_posted()
+    {
+        return $this->belongsToMany(Group::class, 'group_task', 'task_id', 'group_code');
     }
 
     // </editor-fold>
@@ -80,8 +86,13 @@ class Task extends Model
                 ->select('task.*', 'student_task_completed.student_number')
                 ->distinct('student_task_completed.task_id')
                 ->leftJoin('student_task_completed', function($join) use ($user) {
-                    $join->on('student_task_completed.task_id', '=', 'task.id');
-                    $join->on('student_task_completed.student_number', '=', DB::raw("'{$user->student->student_number}'"));
+
+                    if ( $user->student ) {
+                        $join->on('student_task_completed.task_id', '=', 'task.id');
+                        $join->on('student_task_completed.student_number', '=', DB::raw("'{$user->student->student_number}'"));
+                    } else {
+                        $join->on('student_task_completed.task_id', '=', 'task.id')->whereNull('student_task_completed.student_number');
+                    }
                 });
     }
 

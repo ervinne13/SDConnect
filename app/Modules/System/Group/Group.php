@@ -4,8 +4,8 @@ namespace App\Modules\System\Group;
 
 use App\Modules\Base\Traits\Activatable;
 use App\Modules\Base\Traits\HasCompositeKeys;
+use App\Modules\System\User\Student;
 use App\Modules\System\User\UserAccount;
-use App\Modules\System\User\UserAccountGroup;
 use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model

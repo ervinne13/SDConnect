@@ -17,7 +17,7 @@ class CreateTeacherTable extends Migration {
         Schema::create(self::TABLE_NAME, function(Blueprint $table) {
             $table->string('user_account_username', 30);
             $table->boolean('is_active')->default(true);
-            $table->text('about');
+            $table->text('about')->nullable();
             $table->timestamps();
 
             $table->primary('user_account_username');

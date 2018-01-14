@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules\System;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\System\Task\SaveTaskRequest;
+use App\Modules\System\Group\Group;
 use App\Modules\System\Group\Repository\GroupRepository;
 use App\Modules\System\Post\Post;
 use App\Modules\System\Task\Repository\TaskRepository;
@@ -46,11 +47,11 @@ class TaskController extends Controller
     public function index()
     {
         $posts = Post::where('module', 'Task')
-            ->with('group')
-            ->with(['task' => function($query) {
-            $query->withStudentNumberOfUser(Auth::user());
-        }])->get();
-                
+                ->with('group')
+                ->with(['task' => function($query) {
+                        $query->withStudentNumberOfUser(Auth::user());
+                    }])->get();
+
 //        $tasks = Task::with('post')->withStudentNumberOfUser(Auth::user())->get();
         return view('pages.task.index', ['posts' => $posts]);
     }
@@ -96,13 +97,21 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $task    = Task::withStudentNumberOfUser(Auth::user())->find($id);
-        $student = Auth::user()->student()->first();
+        if ( Auth::user()->student ) {
+            $task    = Task::withStudentNumberOfUser(Auth::user())->find($id);
+            $student = Auth::user()->student()->first();
 
-        return view('pages.task.view', [
-            'task'    => $task,
-            'student' => $student,
-        ]);
+            return view('pages.task.view', [
+                'task'    => $task,
+                'student' => $student,
+            ]);
+        } else {
+            $task = Task::with('groups_posted')->find($id);
+
+            return view('pages.task.report', [
+                'task' => $task
+            ]);
+        }
     }
 
     /**
@@ -185,6 +194,16 @@ class TaskController extends Controller
 
         $request->session()->flash('message', "You've successfully submitted your answers. Please wait for your teacher/instructor to publish the task results.");
         return redirect('task');
+    }
+
+    public function generateTaskReport($taskId, $groupCode)
+    {
+        $task  = Task::find($taskId);
+        $group = Group::find($groupCode);
+        return view('pages.task.group-report', [
+            'task'  => $task,
+            'group' => $group
+        ]);
     }
 
     /**
