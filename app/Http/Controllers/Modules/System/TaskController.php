@@ -8,6 +8,7 @@ use App\Modules\System\Group\Group;
 use App\Modules\System\Group\Repository\GroupRepository;
 use App\Modules\System\Post\Post;
 use App\Modules\System\Task\Repository\TaskRepository;
+use App\Modules\System\Task\StudentTaskCompletion;
 use App\Modules\System\Task\Task;
 use App\Modules\System\Task\TaskItem;
 use Exception;
@@ -37,6 +38,33 @@ class TaskController extends Controller
     public function listAllJson()
     {
         return Task::all();
+    }
+
+    public function taskGroupResults($taskId, $groupCode)
+    {
+        $group = Group::findOrFail($groupCode);
+
+        $taskCompletion = StudentTaskCompletion::taskId($taskId)->get();
+        $taskPointMap   = [];
+
+        foreach ( $taskCompletion as $task ) {
+            $taskPointMap[$task->student_number] = $task->points;
+        }
+
+        $results = [];
+        foreach ( $group->studentMembers as $student ) {
+            array_push($results, [
+                'student_number'       => $student->student_number,
+                'student_display_name' => $student->display_name,
+                'total_points'         => array_key_exists($student->student_number, $taskPointMap) ? $taskPointMap[$student->student_number] : 'x',
+            ]);
+        }
+
+        return view('pages.task.group-report', [
+            'group'   => $group,
+            'task'    => $task,
+            'results' => $results
+        ]);
     }
 
     /**

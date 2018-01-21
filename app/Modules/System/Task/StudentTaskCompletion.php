@@ -11,4 +11,9 @@ class StudentTaskCompletion extends Model
     public $timestamps   = false;
     protected $table     = 'student_task_completed';
 
+    public function scopeTaskId($query, $taskId)
+    {
+        return $query->where('task_id', $taskId);
+    }
+
 }
