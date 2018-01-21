@@ -16,4 +16,9 @@ class StudentTaskCompletion extends Model
         return $query->where('task_id', $taskId);
     }
 
+    public function scopeStudentNumber($query, $studentNumber)
+    {
+        return $query->where('student_number', $studentNumber);
+    }
+
 }

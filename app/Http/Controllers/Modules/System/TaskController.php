@@ -11,6 +11,7 @@ use App\Modules\System\Task\Repository\TaskRepository;
 use App\Modules\System\Task\StudentTaskCompletion;
 use App\Modules\System\Task\Task;
 use App\Modules\System\Task\TaskItem;
+use App\Modules\System\User\Student;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -42,13 +43,14 @@ class TaskController extends Controller
 
     public function taskGroupResults($taskId, $groupCode)
     {
+        $task  = Task::findOrFail($taskId);
         $group = Group::findOrFail($groupCode);
 
         $taskCompletion = StudentTaskCompletion::taskId($taskId)->get();
         $taskPointMap   = [];
 
-        foreach ( $taskCompletion as $task ) {
-            $taskPointMap[$task->student_number] = $task->points;
+        foreach ( $taskCompletion as $completedTask ) {
+            $taskPointMap[$completedTask->student_number] = $completedTask->points;
         }
 
         $results = [];
@@ -64,6 +66,32 @@ class TaskController extends Controller
             'group'   => $group,
             'task'    => $task,
             'results' => $results
+        ]);
+    }
+
+    public function studentResponses($taskId, $groupCode, $studentNumber)
+    {
+        $task  = Task::with('items')->findOrFail($taskId);
+        $group = Group::with('studentMembers')->findOrFail($groupCode);
+
+        $student          = Student::with('userAccount')->findOrFail($studentNumber);
+        $taskCompletion   = StudentTaskCompletion::taskId($taskId)->studentNumber($studentNumber)->first();
+        $studentResponses = DB::table('student_response')
+            ->where('student_number', $studentNumber)
+            ->where('task_id', $taskId)
+            ->get();
+
+        $responseMap = [];
+        foreach ( $studentResponses as $response ) {
+            $responseMap[$response->task_item_order] = $response;
+        }
+
+        return view('pages.task.student-task-report', [
+            'group'          => $group,
+            'task'           => $task,
+            'student'        => $student,
+            'taskCompletion' => $taskCompletion,
+            'responses'      => $responseMap
         ]);
     }
 

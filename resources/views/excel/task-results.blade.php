@@ -26,7 +26,7 @@
             </td>
             <td class="text-right">
                 @if ($submitted)
-                <a href="javascript:;">View Answers</a>
+                <a href="{{url("/task/{$task->id}/group/{$group->code}/student/{$result['student_number']}/responses")}}">View Answers</a>
                 @endif
             </td>
         </tr>
