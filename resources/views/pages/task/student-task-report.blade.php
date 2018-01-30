@@ -24,7 +24,7 @@
                     </label>
                     @elseif ($taskItem->type_code == 'TF')
                     <label>
-                        Correct Answer: <span class="text-success">{{$taskItem->correct_answer_free_field ? 'True' : 'False'}}</span>
+                        Correct Answer: <span class="text-success">{{$taskItem->correct_answer_free_field == 'true' ? 'True' : 'False'}}</span>
                     </label>
                     @endif
 
