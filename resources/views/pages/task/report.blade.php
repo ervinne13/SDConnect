@@ -70,7 +70,7 @@ let task = {!! $task !!}
                         </tbody>
                     </table>
 
-                    <a href="{{url('/task/' . $task->id .'/group/' . $group->code . '/report')}}" target="_blank" class="btn btn-success btn-lg btn-block">Download Task Results</a>
+                    <a href="{{url('/task/' . $task->id .'/group/' . $group->code . '/report')}}" target="_blank" class="btn btn-success btn-lg btn-block">View Task Results</a>
                 </div>
             </div>
 
