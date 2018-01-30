@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1'], function() {
 
     Route::group(['namespace' => 'Modules\API'], function() {
-        Route::get('task-list', 'TaskController@listAll');
+        Route::get('tasks', 'TaskController@listAll');
     });
 
     Route::post('login', 'Auth\LoginController@loginJWT');
