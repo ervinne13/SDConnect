@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Exceptions\InvalidInputException;
 use App\Http\Controllers\Controller;
+use App\Modules\System\User\UserAccount;
 use App\Services\JWTAuthService;
 use Exception;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -82,7 +83,12 @@ use AuthenticatesUsers;
     protected function loginJWT(Request $request, JWTAuthService $JWTAuthService)
     {
         try {
-            return $JWTAuthService->login($request->username, $request->password);
+            $token = $JWTAuthService->login($request->username, $request->password);
+
+            return response()->json([
+                    'token'        => $token,
+                    'display_name' => UserAccount::username($request->username)->first()->display_name
+            ]);
         } catch ( InvalidInputException $e ) {
             return response($e->getMessage(), 400);
         } catch ( Exception $e ) {

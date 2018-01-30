@@ -26,3 +26,10 @@ Route::group(['prefix' => 'v1'], function() {
     Route::post('login', 'Auth\LoginController@loginJWT');
 });
 
+Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']], function() {
+
+    Route::group(['prefix' => 'mobile', 'namespace' => 'Modules\API'], function() {
+        Route::get('tasks', 'TaskController@listAllMobile');
+    });
+});
+
