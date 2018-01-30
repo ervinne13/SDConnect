@@ -71,6 +71,21 @@ class Task extends Model
 
     // </editor-fold>
 
+    public function scopeNonExam($query)
+    {
+        return $query->where('type_code', '!=', 'E');
+    }
+
+    public function scopeAssignment($query)
+    {
+        return $query->where('type_code', 'A');
+    }
+
+    public function scopeQuiz($query)
+    {
+        return $query->where('type_code', 'Q');
+    }
+
     public function scopeUserGroups($query, $groupCodeList)
     {
         return $query

@@ -25,7 +25,7 @@ class SampleTaskSeeder extends Seeder
             $task->description        = 'This is a test exam with 30 mins time limit';
 //            $task->deadline           = '2018-01-10';
 
-            $task->type_code = 'E';
+            $task->type_code = 'A';
 
             $task->save();
 
