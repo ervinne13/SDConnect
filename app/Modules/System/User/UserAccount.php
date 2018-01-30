@@ -34,6 +34,11 @@ class UserAccount extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function scopeUsername($query, $username)
+    {
+        return $query->where('username', $username);
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, "user_account_role", "user_account_username", "role_code");

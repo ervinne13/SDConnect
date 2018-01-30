@@ -7,7 +7,7 @@ use App\Modules\Base\Impl\BasicBaseRepository;
 use App\Modules\System\Post\Post;
 use App\Modules\System\Post\Repository\PostRepository;
 use App\Modules\System\User\UserAccount;
-use Exception;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Description of PostRepositoryDefaultImpl
