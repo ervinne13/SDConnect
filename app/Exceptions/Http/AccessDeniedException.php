@@ -3,10 +3,11 @@
 namespace App\Exceptions\Http;
 
 use App\Exceptions\HttpCodeProviderException;
-use \Exception;
+use Exception;
 
 class AccessDeniedException extends Exception implements HttpCodeProviderException
 {
+
     const HTTP_CODE = 403;
 
     public function __construct($message = null, $code = 0, Exception $previous = null)
@@ -18,5 +19,6 @@ class AccessDeniedException extends Exception implements HttpCodeProviderExcepti
     public function getHttpResponseCode()
     {
         return static::HTTP_CODE;
-    }    
+    }
+
 }

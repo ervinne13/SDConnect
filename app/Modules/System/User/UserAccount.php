@@ -5,8 +5,9 @@ namespace App\Modules\System\User;
 use App\Modules\System\Role\Role;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class UserAccount extends Authenticatable
+class UserAccount extends Authenticatable implements JWTSubject
 {
 
     use Notifiable;
@@ -34,11 +35,6 @@ class UserAccount extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function scopeUsername($query, $username)
-    {
-        return $query->where('username', $username);
-    }
-
     public function roles()
     {
         return $this->belongsToMany(Role::class, "user_account_role", "user_account_username", "role_code");
@@ -52,6 +48,11 @@ class UserAccount extends Authenticatable
     public function teacher()
     {
         return $this->hasOne(Teacher::class, 'user_account_username');
+    }
+
+    public function scopeUsername($query, $username)
+    {
+        return $query->where('username', $username);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Functions">
@@ -114,4 +115,14 @@ class UserAccount extends Authenticatable
     }
 
     // </editor-fold>
+    
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }

@@ -17,13 +17,20 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'v1', 'namespace' => 'Modules\API'], function() {
-    Route::post('register', 'JWTAuthController@register');
-    Route::post('login', 'JWTAuthController@login');
-    Route::post('recover', 'JWTAuthController@recover');
+Route::group(['prefix' => 'v1'], function() {
+
+    Route::group(['namespace' => 'Modules\API'], function() {
+        Route::get('tasks', 'TaskController@listAll');
+    });
+
+    Route::post('login', 'Auth\LoginController@loginJWT');
 });
 
+Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']], function() {
 
-Route::group(['prefix' => 'v1'], function() {
-    Route::get('task-list', 'Modules\System\TaskController@listAllJson');
+    Route::group(['prefix' => 'mobile', 'namespace' => 'Modules\API'], function() {        
+        Route::get('current-user', 'UserAccountController@currentUser');
+        
+        Route::get('tasks', 'TaskController@listAllMobile');
+    });
 });

@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Modules\System\Auth\Services\Impl\JWTAuthServiceDefaultImpl;
-use App\Modules\System\Auth\Services\JWTAuthService;
+use App\Services\Impl\JWTAuthServiceDefaultImpl;
+use App\Services\JWTAuthService;
 use Illuminate\Support\ServiceProvider;
 
 class JWTAuthServiceProvider extends ServiceProvider

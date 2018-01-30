@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Exceptions\InvalidInputException;
 use App\Http\Controllers\Controller;
+use App\Modules\System\User\UserAccount;
+use App\Services\JWTAuthService;
+use Exception;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use function response;
+use function view;
 
 class LoginController extends Controller
 {
@@ -72,4 +79,21 @@ use AuthenticatesUsers;
 //        $moduleACLSrvc = new ModuleACLService();
 //        $request->session()->put("currentUser.accessibleModuleOrder", $moduleACLSrvc->getAccessibleModules());
 //    }
+
+    protected function loginJWT(Request $request, JWTAuthService $JWTAuthService)
+    {
+        try {
+            $token = $JWTAuthService->login($request->username, $request->password);
+
+            return response()->json([
+                    'token'        => $token,
+                    'display_name' => UserAccount::username($request->username)->first()->display_name
+            ]);
+        } catch ( InvalidInputException $e ) {
+            return response($e->getMessage(), 400);
+        } catch ( Exception $e ) {
+            return response($e->getMessage(), 500);
+        }
+    }
+
 }

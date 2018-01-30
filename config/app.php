@@ -174,7 +174,8 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-
+        App\Providers\JWTAuthServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */
@@ -185,10 +186,12 @@ return [
         App\Providers\RouteServiceProvider::class,
         
         App\Providers\RepositoryProvider::class,
+
         App\Providers\ViewComposerServiceProvider::class,        
         App\Providers\JWTAuthServiceProvider::class,
-        
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+       
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
         
     ],
 
