@@ -34,4 +34,3 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']], function() {
         Route::get('tasks', 'TaskController@listAllMobile');
     });
 });
-

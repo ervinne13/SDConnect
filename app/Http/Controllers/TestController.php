@@ -18,7 +18,7 @@ class TestController extends Controller
 
         $mapper = new SnakeToPascalCaseAttributeMapper();
 
-        return $mapper->map($attributes);
+        return $mapper->map($attributes);        
     }
 
     public function chart()
