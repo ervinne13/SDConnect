@@ -86,9 +86,10 @@ class TaskItemListView {
 
         let order = 0;
         for (let i in this.taskItemsByOrder) {
+            order++;
             if (this.taskItemsByOrder[i].id == taskItem.id) {
                 this.taskItemsByOrder[i] = taskItem;
-                this.taskItemsByOrder[i].order = ++order;
+                this.taskItemsByOrder[i].order = order;
                 break;
             }
         }

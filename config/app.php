@@ -174,7 +174,8 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-
+        App\Providers\JWTAuthServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */
@@ -183,8 +184,14 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        
         App\Providers\RepositoryProvider::class,
-        App\Providers\ViewComposerServiceProvider::class,
+
+        App\Providers\ViewComposerServiceProvider::class,        
+        App\Providers\JWTAuthServiceProvider::class,
+       
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
         
         /*
          * 3rd Party Service Providers
@@ -239,7 +246,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         
     ],
 
