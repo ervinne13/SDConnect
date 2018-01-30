@@ -53,6 +53,13 @@ class Group extends Model
         return $this->belongsToMany(UserAccount::class, "group_member", "group_code", "user_account_username");
     }
 
+    public function studentMembers()
+    {
+        return $this->members()
+                ->select(['*', 'student.student_number'])
+                ->rightJoin('student', 'student.user_account_username', '=', 'user_account.username');
+    }
+
 //    public function members()
 //    {
 //        return $this->belongsToMany(UserAccountGroup::class, "code", "group_code");

@@ -8,8 +8,10 @@ use App\Modules\System\Group\Group;
 use App\Modules\System\Group\Repository\GroupRepository;
 use App\Modules\System\Post\Post;
 use App\Modules\System\Task\Repository\TaskRepository;
+use App\Modules\System\Task\StudentTaskCompletion;
 use App\Modules\System\Task\Task;
 use App\Modules\System\Task\TaskItem;
+use App\Modules\System\User\Student;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -37,6 +39,60 @@ class TaskController extends Controller
     public function listAllJson()
     {
         return Task::all();
+    }
+
+    public function taskGroupResults($taskId, $groupCode)
+    {
+        $task  = Task::findOrFail($taskId);
+        $group = Group::findOrFail($groupCode);
+
+        $taskCompletion = StudentTaskCompletion::taskId($taskId)->get();
+        $taskPointMap   = [];
+
+        foreach ( $taskCompletion as $completedTask ) {
+            $taskPointMap[$completedTask->student_number] = $completedTask->points;
+        }
+
+        $results = [];
+        foreach ( $group->studentMembers as $student ) {
+            array_push($results, [
+                'student_number'       => $student->student_number,
+                'student_display_name' => $student->display_name,
+                'total_points'         => array_key_exists($student->student_number, $taskPointMap) ? $taskPointMap[$student->student_number] : 'x',
+            ]);
+        }
+
+        return view('pages.task.group-report', [
+            'group'   => $group,
+            'task'    => $task,
+            'results' => $results
+        ]);
+    }
+
+    public function studentResponses($taskId, $groupCode, $studentNumber)
+    {
+        $task  = Task::with('items')->findOrFail($taskId);
+        $group = Group::with('studentMembers')->findOrFail($groupCode);
+
+        $student          = Student::with('userAccount')->findOrFail($studentNumber);
+        $taskCompletion   = StudentTaskCompletion::taskId($taskId)->studentNumber($studentNumber)->first();
+        $studentResponses = DB::table('student_response')
+            ->where('student_number', $studentNumber)
+            ->where('task_id', $taskId)
+            ->get();
+
+        $responseMap = [];
+        foreach ( $studentResponses as $response ) {
+            $responseMap[$response->task_item_order] = $response;
+        }
+
+        return view('pages.task.student-task-report', [
+            'group'          => $group,
+            'task'           => $task,
+            'student'        => $student,
+            'taskCompletion' => $taskCompletion,
+            'responses'      => $responseMap
+        ]);
     }
 
     /**

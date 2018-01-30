@@ -12,7 +12,7 @@
                     {{$task->display_name}} on Group: {{$group->display_name}}                    
                 </div>
                 <div class="panel-body">
-                    
+                    @include('excel.task-results')
                 </div>
             </div>
 
