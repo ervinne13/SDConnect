@@ -23,14 +23,16 @@ class TaskController extends Controller
 
         //  don't bother with the unoptimzed query with filter, this will be rewritten
         //  in CI anyway
-        return Task::with('post')
-                ->with('items')
-                ->userGroups($groupCodeList)
-                ->withStudentNumberOfUser($user)
-                ->get()
-                ->filter(function($task) {
-                    return $task->student_number != Auth::user()->student->student_number;
-                });
+        $groupedTasks = Task::with('post')
+            ->with('items')
+            ->userGroups($groupCodeList)
+            ->withStudentNumberOfUser($user)
+            ->get()
+            ->filter(function($task) {
+            return $task->student_number != Auth::user()->student->student_number;
+        });
+
+        return array_values($groupedTasks->toArray());
     }
 
 }
