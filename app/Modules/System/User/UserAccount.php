@@ -115,7 +115,7 @@ class UserAccount extends Authenticatable implements JWTSubject
     }
 
     // </editor-fold>
-    
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -125,4 +125,5 @@ class UserAccount extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
 }
