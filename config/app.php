@@ -15,7 +15,7 @@ return [
     'name' => 'SDCA - Connect',
     'name_html' => 'SDCA - <span class="text-danger">Connect</span>',
 
-    'organization_name' => 'Saint Dominic College of Asia',
+    'organization_name' => 'St. Dominic College of Asia',
     'organization_short_name' => 'St. Dominic',
     
     'author_link' => '#',

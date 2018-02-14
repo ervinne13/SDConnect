@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\System\Group\Repository\GroupRepository;
 use App\Modules\System\Task\Task;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
@@ -32,7 +33,10 @@ class TaskController extends Controller
             return $task->student_number != Auth::user()->student->student_number;
         });
 
+        Log::info($groupedTasks);
+        
         return array_values($groupedTasks->toArray());
     }
+
 
 }

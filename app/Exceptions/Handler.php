@@ -54,13 +54,17 @@ class Handler extends ExceptionHandler
      * @return Response
      */
     public function render($request, Exception $exception)
-    {
+    {        
         if ( $exception instanceof InvalidInputException ) {
             return response()->json(['error' => $exception->getMessage()], InvalidInputException::HTTP_CODE);
         }
 
         if ( $exception instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException ) {
             return response($exception->getMessage(), 401);
+        }
+        
+        if ($request->ajax() || $request->wantsJson()) {
+            return response($exception->getMessage(), 500);
         }
 
         return parent::render($request, $exception);

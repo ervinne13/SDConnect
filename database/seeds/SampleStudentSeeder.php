@@ -22,7 +22,7 @@ class SampleStudentSeeder extends Seeder
             ]);
         });
 
-        //  fixed sample
+        //  fixed samples
         $juan               = new UserAccount();
         $juan->username     = 'juan';
         $juan->display_name = 'Juan Dela Cruz';
@@ -33,6 +33,17 @@ class SampleStudentSeeder extends Seeder
         $juanStudent                 = new Student();
         $juanStudent->student_number = '2018-1312345';
         $juan->student()->save($juanStudent);
+
+        $ervinne               = new UserAccount();
+        $ervinne->username     = 'ervinne';
+        $ervinne->display_name = 'Ervinne Sodusta';
+        $ervinne->password     = bcrypt('secret');
+
+        $ervinne->save();
+
+        $ervinneStudent                 = new Student();
+        $ervinneStudent->student_number = '2018-1312346';
+        $ervinne->student()->save($ervinneStudent);
     }
 
 }
