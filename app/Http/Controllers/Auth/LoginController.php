@@ -89,10 +89,10 @@ use AuthenticatesUsers;
                     'token'        => $token,
                     'display_name' => UserAccount::username($request->username)->first()->display_name
             ]);
-        } catch ( InvalidInputException $e ) {
-            return response($e->getMessage(), 400);
+        } catch ( InvalidInputException  $e ) {
+            return response()->json(['error' => $e->getMessage()], 400);
         } catch ( Exception $e ) {
-            return response($e->getMessage(), 500);
+            return response(['error' => $e->getMessage()], 500);
         }
     }
 
