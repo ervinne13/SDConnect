@@ -50,6 +50,11 @@ class Post extends Model
     /**/
     // <editor-fold defaultstate="collapsed" desc="Scopes">
 
+    public function scopeNonTask($query)
+    {
+        return $query->where('module', '!=', 'Task');
+    }
+
     public function scopeAccessibleByUsername($query, $username)
     {
         return $query->select("post.*")
