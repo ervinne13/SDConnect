@@ -12,7 +12,11 @@ class PostApiController extends Controller
     public function listAllMobile()
     {
         $user = Auth::user();
-        return Post::NonTask()->AccessibleByUsername($user->username)->get();
+        return Post::NonTask()
+            ->accessibleByUsername($user->username)
+            ->with('author')
+            ->with('group')
+            ->get();
     }
 
 }
