@@ -17,8 +17,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request as RequestFacade;
 use function handle_controller_exception;
 use function redirect;
+use function response;
 use function view;
 
 class TaskController extends Controller
@@ -202,54 +204,72 @@ class TaskController extends Controller
      */
     public function submitAnswers(Request $request, $taskId)
     {
-        $answers = $request->except('_token');
+        $answers = $request->except(['_token', 'token']);         
+        
+        try {
+            $this->saveAnswers($answers, $taskId);
+        } catch ( Exception $ex ) {
+            if ( $request->ajax() ) {
+                return response($ex->getMessage(), 500);
+            } else {
+                throw $ex;
+            }
+        }
+        
+        if ( $request->wantsJson() ) {            
+            return response()->json(['message' => 'success']);
+        } else {
+            $request->session()->flash('message', "You've successfully submitted your answers. Please wait for your teacher/instructor to publish the task results.");
+            return redirect('task');
+        }
+    }
 
-        DB::transaction(function() use ($answers, $taskId) {
+    //  move this to a service later as there's a duplicate in API task controller
+    private function saveAnswers($answers, $taskId)
+    {
+        return DB::transaction(function() use ($answers, $taskId) {
 
-            $student = Auth::user()->student()->first();
+                $student = Auth::user()->student()->first();
 
-            DB::table('student_response')
-                ->whereTaskId($taskId)
-                ->whereStudentNumber($student->student_number)
-                ->delete();
+                DB::table('student_response')
+                    ->whereTaskId($taskId)
+                    ->whereStudentNumber($student->student_number)
+                    ->delete();
 
-            DB::table('student_task_completed')
-                ->whereTaskId($taskId)
-                ->whereStudentNumber($student->student_number)
-                ->delete();
+                DB::table('student_task_completed')
+                    ->whereTaskId($taskId)
+                    ->whereStudentNumber($student->student_number)
+                    ->delete();
 
-            $totalPoints = 0;
+                $totalPoints = 0;
 
-            foreach ( $answers as $key => $studentAnswer ) {
-                $order    = str_replace('task_item_', '', $key);
-                $taskItem = TaskItem::findComposite($taskId, $order);
+                foreach ( $answers as $key => $studentAnswer ) {
+                    $order    = str_replace('task_item_', '', $key);
+                    $taskItem = TaskItem::findComposite($taskId, $order);
 
-                if ( !$taskItem ) {
-                    throw new Exception('Task item order ' . $order . ' not found');
+                    if ( !$taskItem ) {
+                        throw new Exception('Task item order ' . $order . ' not found');
+                    }
+
+                    $points = $this->getTaskItemPoints($taskItem, $studentAnswer);
+
+                    DB::table('student_response')->insert([
+                        'student_number'    => $student->student_number,
+                        'task_id'           => $taskId,
+                        'task_item_order'   => $order,
+                        'points'            => $points,
+                        'answer_free_field' => $studentAnswer
+                    ]);
+
+                    $totalPoints += $points;
                 }
 
-                $points = $this->getTaskItemPoints($taskItem, $studentAnswer);
-
-                DB::table('student_response')->insert([
-                    'student_number'    => $student->student_number,
-                    'task_id'           => $taskId,
-                    'task_item_order'   => $order,
-                    'points'            => $points,
-                    'answer_free_field' => $studentAnswer
+                DB::table('student_task_completed')->insert([
+                    'student_number' => $student->student_number,
+                    'task_id'        => $taskId,
+                    'points'         => $totalPoints,
                 ]);
-
-                $totalPoints += $points;
-            }
-
-            DB::table('student_task_completed')->insert([
-                'student_number' => $student->student_number,
-                'task_id'        => $taskId,
-                'points'         => $totalPoints,
-            ]);
-        });
-
-        $request->session()->flash('message', "You've successfully submitted your answers. Please wait for your teacher/instructor to publish the task results.");
-        return redirect('task');
+            });
     }
 
     public function generateTaskReport($taskId, $groupCode)

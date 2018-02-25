@@ -28,9 +28,12 @@ Route::group(['prefix' => 'v1'], function() {
 
 Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']], function() {
 
-    Route::group(['prefix' => 'mobile', 'namespace' => 'Modules\API'], function() {        
+    Route::group(['prefix' => 'mobile', 'namespace' => 'Modules\API'], function() {
         Route::get('current-user', 'UserAccountController@currentUser');
-        
+
         Route::get('tasks', 'TaskController@listAllMobile');
+        Route::get('posts', 'PostApiController@listAllMobile');
     });
+
+    Route::post('mobile/task/{taskId}/submit-answers', 'Modules\System\TaskController@submitAnswers');
 });
