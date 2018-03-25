@@ -18,17 +18,20 @@ Route::get('/', function () {
 Route::get("/logout", "Auth\LoginController@logout");
 Auth::routes();
 
+Route::resource('teachers', 'Modules\System\TeachersController');
+
 Route::get('home', 'HomeController@index')->name('home');
 
 Route::get('test', 'TestController@test');
 Route::get('test/chart', 'TestController@chart');
 
 Route::group(['namespace' => 'Modules\System', 'middleware' => ['auth']], function () {
-    Route::get('user/datatable', 'UsersController@datatable');    
+    Route::get('user/datatable', 'UsersController@datatable');
+    Route::post('user/update-profile', 'UserController@update');
     Route::resource('user', 'UserController');
 
     Route::get('user/{username}/group', 'UserGroupController@index');
-    
+
     Route::post('group/{groupCode}/join', 'GroupController@joinGroup');
     Route::resource('group', 'GroupController');
 
@@ -40,12 +43,10 @@ Route::group(['namespace' => 'Modules\System', 'middleware' => ['auth']], functi
 
     Route::get('task/json', 'TaskController@listAllJson');
     Route::get('/task/{taskId}/group/{groupCode}/student/{studentNumber}/responses', 'TaskController@studentResponses');
-    Route::get('task/{taskId}/group/{groupCode}/results', 'TaskController@taskGroupResults');    
+    Route::get('task/{taskId}/group/{groupCode}/results', 'TaskController@taskGroupResults');
     Route::post('task/{taskId}/submit-answers', 'TaskController@submitAnswers');
     Route::get('task/{taskId}/group/{groupCode}/report', 'TaskController@generateTaskReport');
     Route::resource('task', 'TaskController');
 
-    Route::resource('teachers', 'TeachersController');
-    
     Route::resource('material', 'MaterialController');
 });

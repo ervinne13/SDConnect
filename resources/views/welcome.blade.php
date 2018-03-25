@@ -86,6 +86,10 @@
                     <i class="fa fa-file"></i>
                     Register
                 </a>
+                <a href="{{ url('/teachers/create') }}">
+                    <i class="fa fa-file"></i>
+                    Register Teacher
+                </a>
                 @endif
             </div>
             @endif

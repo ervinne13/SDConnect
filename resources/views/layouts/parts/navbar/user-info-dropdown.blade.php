@@ -19,7 +19,7 @@
                 </li>
 
                 <li class="list-group-item">
-                    <a href="../apps/profile-edit.html">
+                    <a href="{{url('user/' . Auth::user()->username . '/edit')}}">
                         <i class="fa fa-gear fa-fw text-gray-dark m-r-1"></i>
                         Your Account
                     </a>

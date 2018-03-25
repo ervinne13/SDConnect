@@ -38,6 +38,12 @@ class TeachersController extends Controller
         $teacher = new Teacher();
         return view('pages.teacher.form', ['teacher' => $teacher]);
     }
+    
+    public function createPublic()
+    {
+        $teacher = new Teacher();
+        return view('pages.teacher.public-form', ['teacher' => $teacher]);
+    }
 
     /**
      * Store a newly created resource in storage.
