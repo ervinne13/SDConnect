@@ -15,7 +15,8 @@ class RegisterTeacherRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check() && Auth::user()->isAdmin();
+//        return Auth::check() && Auth::user()->isAdmin();
+        return true;
     }
 
     /**
