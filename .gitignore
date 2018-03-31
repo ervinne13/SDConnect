@@ -1,6 +1,7 @@
 /nbproject
 /node_modules
 /public/hot
+/public/avatars/*
 /public/storage
 /storage/*.key
 /vendor

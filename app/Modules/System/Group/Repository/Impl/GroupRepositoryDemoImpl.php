@@ -32,7 +32,7 @@ class GroupRepositoryDemoImpl extends BasicBaseRepository implements GroupReposi
     public function getTypes(): array
     {
         return [
-            "Generic",
+            "Default",
             "Faculty",
             "Class",
         ];
@@ -79,6 +79,31 @@ class GroupRepositoryDemoImpl extends BasicBaseRepository implements GroupReposi
         }
 
         return $list;
+    }
+
+    public function accessibleByUserAccount(UserAccount $user)
+    {
+        
+    }
+
+    public function getMembers(Group $group)
+    {
+        
+    }
+
+    public function isUserMemberOfGroup(Group $group, $username)
+    {
+        
+    }
+
+    public function joinGroup(Group $group, $username)
+    {
+        
+    }
+
+    public function joinToAllSystemGeneratedGroups($username)
+    {
+        
     }
 
 }

@@ -49,4 +49,6 @@ Route::group(['namespace' => 'Modules\System', 'middleware' => ['auth']], functi
     Route::resource('task', 'TaskController');
 
     Route::resource('material', 'MaterialController');
+    
+    Route::resource('profile', 'ProfileController');
 });

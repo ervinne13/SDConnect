@@ -28,7 +28,7 @@ class GroupRepositoryDefaultImpl extends BasicBaseRepository implements GroupRep
     public function getTypes(): array
     {
         return [
-            "Generic",
+            "Default",
             "Faculty",
             "Class",
         ];

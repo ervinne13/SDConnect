@@ -19,7 +19,7 @@ class DefaultGroupSeeder extends Seeder
         $group = new Group();
         $group->setCode("SDCA")
             ->setOwner(UserAccount::find('admin'))
-            ->setType('Generic')
+            ->setType('Default')
             ->setDisplayName("St. Dominic College of Asia Global Group")
             ->setDescription("St. Dominic College of Asia Global Group\n\nAll school-wide events and notes are posted here")
 //            ->setColor('#912424')

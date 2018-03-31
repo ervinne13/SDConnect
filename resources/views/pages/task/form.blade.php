@@ -34,7 +34,7 @@
             
             <div class="panel panel-default b-a-0 shadow-box">
                 <div class="panel-heading">
-                    Task Items (Write questions or activities that the student must accoplish)
+                    Task Items (Write questions or activities that the student must accomplish)
                 </div>
                 <div class="panel-body">
 
