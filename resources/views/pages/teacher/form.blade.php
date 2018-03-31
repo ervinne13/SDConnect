@@ -59,7 +59,12 @@
                             @endif
                         </div>
                         <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label>Password (Temporary only, Teacher should change this immidiately after first log in)</label>
+                            <label>
+                                <span class="text-warning">
+                                    <i class="fa fa-2x fa-exclamation-triangle"></i>
+                                </span>
+                                Password (Temporary only, Teacher should change this immidiately after first log in)
+                            </label>
                             <input name="password" type="password" class="form-control" value="{{ old('password') }}" placeholder="Enter a Password...">
 
                             @if ($errors->has('password'))
