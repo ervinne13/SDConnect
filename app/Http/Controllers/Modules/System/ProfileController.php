@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Modules\System;
 use App\Http\Controllers\Controller;
 use App\Modules\System\User\Student;
 use App\Modules\System\User\Teacher;
+use App\Modules\System\User\UserAccount;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use function view;
@@ -52,12 +53,15 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $username
      * @return Response
      */
-    public function show($id)
+    public function show($username)
     {
-        
+        return UserAccount::with('groups')
+                ->with('teacher')
+                ->with('student')
+                ->findOrFail($username);
     }
 
     /**
