@@ -12,6 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use function redirect;
+use function response;
 use function view;
 
 class TeachersController extends Controller
@@ -38,7 +39,7 @@ class TeachersController extends Controller
         $teacher = new Teacher();
         return view('pages.teacher.form', ['teacher' => $teacher]);
     }
-    
+
     public function createPublic()
     {
         $teacher = new Teacher();
@@ -53,6 +54,10 @@ class TeachersController extends Controller
      */
     public function store(RegisterTeacherRequest $request)
     {
+        if ( UserAccount::find($request->user_account_username) ) {
+            return redirect()->back()->withErrors(['Username is already taken']);
+        }
+
         try {
             $this->saveTeacherFromRequest($request, null);
             return redirect()->back()->with('message', 'Successfully registered teacher account');
