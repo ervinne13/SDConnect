@@ -2,6 +2,7 @@
 
 namespace App\Modules\System\User;
 
+use App\Modules\System\Group\Group;
 use App\Modules\System\Role\Role;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -43,6 +44,11 @@ class UserAccount extends Authenticatable implements JWTSubject
     public function student()
     {
         return $this->hasOne(Student::class, 'user_account_username');
+    }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, "group_member", "user_account_username", "group_code");
     }
 
     public function teacher()

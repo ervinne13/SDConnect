@@ -42,7 +42,7 @@
                     </div>
 
                     <!-- START Table Users -->
-                    <div class="table-responsive m-t-2">
+                    <div class="table-responsive m-t-2" style="max-height: 400px; overflow-y: scroll">
                         <table class="table table-hover m-b-0">
 
                             <!-- START Head Table -->
@@ -52,11 +52,8 @@
                                         <strong>Has Badge</strong>
                                     </th>
                                     <th class="small text-muted text-uppercase">
-                                        <strong>Name</strong> 
-                                    </th>
-                                    <th class="small text-muted text-uppercase">
-                                        <strong>Groups</strong> 
-                                    </th>                                    
+                                        <strong>Student</strong> 
+                                    </th>                      
                                     <th class="small text-muted text-uppercase text-right">
                                         <strong>Actions</strong> 
                                     </th>
@@ -66,10 +63,11 @@
 
                             <tbody>
 
-                                <!-- START Row Client -->
+                                @foreach($students as $student)                              
+
                                 <tr>
                                     <td class="v-a-m text-center">
-                                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Favorites">
+                                        <a href="javascript:;" data-toggle="tooltip" data-placement="top">
                                             <i class="fa fa-fw fa-star-o text-muted fa-lg"></i>
                                             <i class="fa fa-fw fa-star text-lighting-yellow fa-lg"></i>
                                         </a>
@@ -78,24 +76,23 @@
                                         <div class="media">
                                             <div class="media-left media-middle">
                                                 <div class="avatar avatar-image"> 
-                                                    <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/traneblow/128.jpg" alt="Avatar">                                                     
+                                                    <img class="media-object img-circle" src="{{$student->userAccount->image_url}}" alt="Avatar">
                                                 </div>
                                             </div>
                                             <div class="media-body media-auto">
                                                 <h5 class="m-b-0">
                                                     <strong aria-expanded="true" data-toggle="tab" href="#tab-person-detail-1">
-                                                        <span>Verlie Hermann</span>
+                                                        <span>{{$student->userAccount->display_name}}</span>
                                                     </strong>
                                                 </h5>
                                                 <p class="m-t-0">
-                                                    <span>Chief Marketing Liason</span>
+                                                    <span>
+                                                        {{implode(', ', array_column($student->userAccount->groups->toArray(), 'display_name'))}}
+                                                    </span>
                                                 </p>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td class="v-a-m"> 
-                                        <span>Daren.Brakus@gmail.com</span>
-                                    </td>                                    
+                                    </td>                                 
                                     <td class="v-a-m text-right">
                                         <h5>
                                             <a href="javascript:;" class="action-show-profile">
@@ -106,7 +103,7 @@
                                     </td>
 
                                 </tr>
-                                <!-- END Row Client -->
+                                @endforeach
 
                             </tbody>
                         </table>

@@ -19,7 +19,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $students = Student::all();
+        $students = Student::with('userAccount')->with('userAccount.groups')->get();
         $teachers = Teacher::all();
 
         return view('pages.user.profiles', [
