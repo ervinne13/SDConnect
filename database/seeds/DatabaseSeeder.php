@@ -22,10 +22,12 @@ class DatabaseSeeder extends Seeder
             $this->call(DefaultUsersSeeder::class);
             $this->call(DefaultGroupSeeder::class);
 
-            $this->call(SampleClassSeeder::class);
-            $this->call(SampleTaskSeeder::class);
-            
-            $this->call(SampleStudentSeeder::class);
+            if ( config('app.env') != 'production' ) {
+                $this->call(SampleClassSeeder::class);
+                $this->call(SampleTaskSeeder::class);
+
+                $this->call(SampleStudentSeeder::class);
+            }
 
             DB::commit();
         } catch ( Exception $e ) {
