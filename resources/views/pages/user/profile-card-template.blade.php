@@ -25,10 +25,15 @@
                             <% } %>
                         </span>
                     </p>
+
+                    <% if (app.session.isAdmin) { %>
+
                     <button id="action-show-give-badge-modal" type="button" class="btn btn-success">
                         <i class="fa fa-star-o"></i>
                         Give Badge
                     </button>
+
+                    <% } %>
                 </div>
             </div>
             <!-- END Avatar with Name -->

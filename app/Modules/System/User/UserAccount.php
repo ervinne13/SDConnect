@@ -37,6 +37,10 @@ class UserAccount extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
+    protected $with = [
+        'roles'
+    ];
+    
     public function roles()
     {
         return $this->belongsToMany(Role::class, "user_account_role", "user_account_username", "role_code");

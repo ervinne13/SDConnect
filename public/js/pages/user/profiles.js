@@ -6,6 +6,8 @@ let Profiles = (function () {
     function init() {
         profileCardTemplate = _.template($('#profile-card-template').html());
         initEvents();
+        
+        console.log(app.session);
     }
 
     function initEvents() {
