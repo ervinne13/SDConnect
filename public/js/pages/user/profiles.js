@@ -1,7 +1,10 @@
 
 let Profiles = (function () {
 
+    let profileCardTemplate;
+
     function init() {
+        profileCardTemplate = _.template($('#profile-card-template').html());
         initEvents();
     }
 
@@ -21,6 +24,11 @@ let Profiles = (function () {
                 filter(filterCode, filterText);
             }, 750)();
         });
+
+        $('.action-show-profile').click(function () {
+            let username = $(this).data('username');
+            loadProfile(username);
+        });
     }
 
     function filter(filterCode, filterText) {
@@ -36,6 +44,15 @@ let Profiles = (function () {
             if (filterableValue.toLowerCase().indexOf(filterText.toLowerCase()) < 0) {
                 $(`.filterable-container[data-filter-code=${filterCode}] .filterable-item[data-filter-value="${filterableValue}"]`).hide();
             }
+        });
+    }
+
+    function loadProfile(username) {
+        let url = baseURL + '/profiles/' + username;
+
+        $.get(url, userData => {
+            let profileCardHtml = profileCardTemplate(userData);
+            $('#profile-card-container').html(profileCardHtml);
         });
     }
 

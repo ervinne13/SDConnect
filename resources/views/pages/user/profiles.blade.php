@@ -1,5 +1,9 @@
 @extends('layouts.skarla')
 
+@section('vendor-js')
+<script src="{{url("vendor/underscore/underscore.js")}}"></script>
+@endsection
+
 @section('js')
 
 <script src="{{url("js/pages/user/profiles.js")}}"></script>
@@ -11,6 +15,8 @@ $(document).ready(function () {
 });
 
 </script>
+
+@include('pages.user.profile-card-template')
 
 @endsection
 
@@ -133,73 +139,8 @@ $(document).ready(function () {
             <div class="tab-content">
 
                 <!-- START Person Detail #1 -->
-                <div class="tab-pane fade in active p-r-1" id="tab-person-detail-1" role="tabpanel">
-                    <div class="panel panel-default b-a-0 shadow-box">
-                        <div class="panel-body">
+                <div id="profile-card-container" class="tab-pane fade in active p-r-1" id="tab-person-detail-1" role="tabpanel">
 
-                            <!-- START Avatar with Name -->
-                            <div class="media m-l-1">
-                                <div class="media-left">
-                                    <div class="center-block">
-                                        <div class="avatar avatar-image avatar-lg center-block">
-                                            <img class="img-circle center-block m-t-1 m-b-2" src="https://s3.amazonaws.com/uifaces/faces/twitter/joshhemsley/128.jpg" alt="Avatar">                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="media-body ">
-                                    <h4 class="m-b-0">
-                                        <span>Gus Kub</span>                                       
-                                    </h4>
-                                    <p class="m-t-0"><span>Lead Brand Technician</span></p>
-                                    <button type="button" class="btn btn-success">
-                                        <i class="fa fa-star-o"></i>
-                                        Give Badge
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- END Avatar with Name -->
-
-                            <div class="hr-text hr-text-left">
-                                <h6 class="text-gray-darker bg-white-i">
-                                    <strong>About</strong>
-                                </h6>
-                            </div>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta sapiente earum, necessitatibus commodi eius pariatur repudiandae cum sunt officiis ex!
-                            <div class="hr-text hr-text-left m-t-2">
-                                <h6 class="text-gray-darker bg-white-i">
-                                    <strong>Badges</strong>
-                                </h6>
-                            </div>
-                            <span class="badge badge-gray-dark badge-outline">
-                                <span>
-                                    <i class="fa fa-fw fa-star text-lighting-yellow fa-lg"></i>
-                                    Punctuality
-                                </span>
-                            </span>
-
-                            <span class="badge badge-gray-dark badge-outline">
-                                <span>
-                                    <i class="fa fa-fw fa-star text-lighting-yellow fa-lg"></i>
-                                    Creativity
-                                </span>
-                            </span>
-
-                            <span class="badge badge-gray-dark badge-outline">
-                                <span>
-                                    <i class="fa fa-fw fa-star text-lighting-yellow fa-lg"></i>
-                                    Activeness
-                                </span>
-                            </span>
-
-                            <span class="badge badge-gray-dark badge-outline">
-                                <span>
-                                    <i class="fa fa-fw fa-star text-lighting-yellow fa-lg"></i>
-                                    Early Bird
-                                </span>
-                            </span>
-
-                        </div>
-                    </div>
                 </div>
                 <!-- END Person Detail #1 -->
 
