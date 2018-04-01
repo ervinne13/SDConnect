@@ -2,6 +2,7 @@
 
 namespace App\Modules\System\User;
 
+use App\Modules\System\Badge\Badge;
 use App\Modules\System\Group\Group;
 use App\Modules\System\Role\Role;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -54,6 +55,11 @@ class UserAccount extends Authenticatable implements JWTSubject
     public function teacher()
     {
         return $this->hasOne(Teacher::class, 'user_account_username');
+    }
+
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class, "user_account_badge", "user_account_username", "badge_id");
     }
 
     public function scopeUsername($query, $username)
