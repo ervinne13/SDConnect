@@ -2,7 +2,13 @@
 
 @section('js')
 
+<script src="{{url("js/pages/user/profiles.js")}}"></script>
+
 <script type="text/javascript">
+
+$(document).ready(function () {
+    Profiles.init();
+});
 
 </script>
 
@@ -33,9 +39,9 @@
                 <div class="tab-pane fade in active p-r-1" id="tab-students" role="tabpanel">
 
                     <div class="input-group m-t-1">
-                        <input type="text" class="form-control" placeholder="Search for student name">
+                        <input type="text" class="form-control filter-field" data-filter-code="students" placeholder="Search for student name">
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button" style="height: 32px;">
+                            <button class="btn btn-primary filter-trigger" type="button" style="height: 32px;" data-filter-code="students">
                                 <i class="fa fa-fw fa-search"></i>
                             </button>
                         </span>
@@ -61,7 +67,7 @@
                             </thead>
                             <!-- END Head Table -->
 
-                            <tbody>
+                            <tbody class="filterable-container" data-filter-code="students">
 
                                 @foreach($students as $student)                              
                                 @include('pages.user.profile-list-item', ['model' => $student])
@@ -75,6 +81,45 @@
 
                 <!-- START Tab Content: Teachers -->
                 <div class="tab-pane fade in p-r-1" id="tab-teachers" role="tabpanel">
+
+                    <div class="input-group m-t-1">
+                        <input type="text" class="form-control" placeholder="Search for teacher name">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" style="height: 32px;">
+                                <i class="fa fa-fw fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+
+                    <!-- START Table Users -->
+                    <div class="table-responsive m-t-2" style="max-height: 400px; overflow-y: scroll">
+                        <table class="table table-hover m-b-0">
+
+                            <!-- START Head Table -->
+                            <thead>
+                                <tr>                                    
+                                    <th class="small text-muted text-uppercase">
+                                        <strong>Has Badge</strong>
+                                    </th>
+                                    <th class="small text-muted text-uppercase">
+                                        <strong>Teacher</strong> 
+                                    </th>                      
+                                    <th class="small text-muted text-uppercase text-right">
+                                        <strong>Actions</strong> 
+                                    </th>
+                                </tr>
+                            </thead>
+                            <!-- END Head Table -->
+
+                            <tbody>
+
+                                @foreach($teachers as $teacher)                              
+                                @include('pages.user.profile-list-item', ['model' => $teacher])
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
 
                 </div>
 

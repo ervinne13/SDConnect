@@ -50,5 +50,5 @@ Route::group(['namespace' => 'Modules\System', 'middleware' => ['auth']], functi
 
     Route::resource('material', 'MaterialController');
     
-    Route::resource('profile', 'ProfileController');
+    Route::resource('profiles', 'ProfileController');
 });
