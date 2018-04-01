@@ -53,6 +53,12 @@
                 </li>
                 @endif
                 
+                <li>
+                    <a href="{{url('/profiles')}}" role="button">
+                        <i class="fa fa-users"></i> Profiles
+                    </a>
+                </li>
+                
                 @endif
             </ul>
             <!-- START Left Side Navbar -->
