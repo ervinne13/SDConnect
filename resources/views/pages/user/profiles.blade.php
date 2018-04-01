@@ -152,3 +152,49 @@ $(document).ready(function () {
 
 </div>
 @endsection
+
+
+@section('modals')
+
+<div id="give-badge-modal" class="modal fade" tabindex="-1" role="dialog" style="display: none">
+    <div class="modal-dialog">
+        <div class="modal-content b-a-0">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&#xD7;</span></button>
+                <h4 class="modal-title">Give Badge</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+<!--                        <span class="text-center">
+                            <i class="fa fa-4x fa-star text-lighting-yellow"></i>
+                        </span>-->
+
+                        <div class="form-group">
+                            <select id="badge-select" required class="form-control">
+                                @foreach($badges as $badge)
+                                <option value="{{$badge->id}}">{{$badge->display_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-right">
+                    <button id="action-give-badge" class="btn btn-primary">
+                        <i class="fa fa-star text-lighting-yellow"></i>
+                        Give Badge
+                    </button>
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">Cancel</span>
+                    </button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@append

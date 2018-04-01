@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Modules\System;
 
 use App\Http\Controllers\Controller;
+use App\Modules\System\Badge\Badge;
 use App\Modules\System\User\Student;
 use App\Modules\System\User\Teacher;
 use App\Modules\System\User\UserAccount;
@@ -23,9 +24,12 @@ class ProfileController extends Controller
         $students = Student::with('user_account')->with('user_account.groups')->get();
         $teachers = Teacher::with('user_account')->with('user_account.groups')->get();
 
+        $badges = Badge::all();
+
         return view('pages.user.profiles', [
             'students' => $students,
             'teachers' => $teachers,
+            'badges'   => $badges,
         ]);
     }
 
@@ -61,6 +65,7 @@ class ProfileController extends Controller
         return UserAccount::with('groups')
                 ->with('teacher')
                 ->with('student')
+                ->with('badges')
                 ->findOrFail($username);
     }
 

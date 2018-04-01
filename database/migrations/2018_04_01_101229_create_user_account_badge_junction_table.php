@@ -20,6 +20,8 @@ class CreateUserAccountBadgeJunctionTable extends Migration
             $table->string('user_account_username', 30);
             $table->integer('badge_id')->unsigned();
 
+            $table->primary(['user_account_username', 'badge_id']);
+            
             $table->foreign('user_account_username')
                 ->references('username')
                 ->on('user_account')
