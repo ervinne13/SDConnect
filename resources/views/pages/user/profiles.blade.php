@@ -83,9 +83,9 @@ $(document).ready(function () {
                 <div class="tab-pane fade in p-r-1" id="tab-teachers" role="tabpanel">
 
                     <div class="input-group m-t-1">
-                        <input type="text" class="form-control" placeholder="Search for teacher name">
+                        <input type="text" class="form-control filter-field" data-filter-code="teachers" placeholder="Search for teacher name">
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button" style="height: 32px;">
+                            <button class="btn btn-primary filter-trigger" type="button" style="height: 32px;" data-filter-code="teachers">
                                 <i class="fa fa-fw fa-search"></i>
                             </button>
                         </span>
@@ -111,7 +111,7 @@ $(document).ready(function () {
                             </thead>
                             <!-- END Head Table -->
 
-                            <tbody>
+                            <tbody class="filterable-container" data-filter-code="teachers">
 
                                 @foreach($teachers as $teacher)                              
                                 @include('pages.user.profile-list-item', ['model' => $teacher])
