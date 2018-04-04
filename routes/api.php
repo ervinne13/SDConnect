@@ -33,6 +33,10 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']], function() {
 
         Route::get('tasks', 'TaskController@listAllMobile');
         Route::get('posts', 'PostApiController@listAllMobile');
+
+        Route::get('students', 'UserAccountController@listStudentsJson');
+        Route::get('teachers', 'UserAccountController@listTeachersJson');
+        Route::get('profile/{username}', 'UserAccountController@profile');
     });
 
     Route::post('mobile/task/{taskId}/submit-answers', 'Modules\System\TaskController@submitAnswers');
