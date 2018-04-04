@@ -31,6 +31,7 @@ Route::group(['namespace' => 'Modules\System', 'middleware' => ['auth']], functi
     Route::resource('user', 'UserController');
 
     Route::get('user/{username}/group', 'UserGroupController@index');
+    Route::post('user/{username}/give-badge', 'UserController@giveBadge');
 
     Route::post('group/{groupCode}/join', 'GroupController@joinGroup');
     Route::resource('group', 'GroupController');

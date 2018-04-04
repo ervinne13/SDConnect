@@ -1,4 +1,5 @@
 <script id="profile-card-template" type="text/html">
+    <div id="profile-card-data" data-username="<%= username %>"></div>
     <div class="panel panel-default b-a-0 shadow-box">
         <div class="panel-body">
 
@@ -24,10 +25,15 @@
                             <% } %>
                         </span>
                     </p>
-                    <button type="button" class="btn btn-success">
+
+                    <% if (app.session.isAdmin) { %>
+
+                    <button id="action-show-give-badge-modal" type="button" class="btn btn-success">
                         <i class="fa fa-star-o"></i>
                         Give Badge
                     </button>
+
+                    <% } %>
                 </div>
             </div>
             <!-- END Avatar with Name -->
@@ -47,33 +53,19 @@
                     <strong>Badges</strong>
                 </h6>
             </div>
-            <span class="badge badge-gray-dark badge-outline">
-                <span>
-                    <i class="fa fa-fw fa-star text-lighting-yellow fa-lg"></i>
-                    Punctuality
-                </span>
-            </span>
 
-            <span class="badge badge-gray-dark badge-outline">
-                <span>
-                    <i class="fa fa-fw fa-star text-lighting-yellow fa-lg"></i>
-                    Creativity
-                </span>
-            </span>
+            <% if (badges.length <= 0) { %>
+            <span>This user is not given any badges yet.</span>            
+            <% } %>
 
+            <% badges.forEach(badge => { %>
             <span class="badge badge-gray-dark badge-outline">
                 <span>
                     <i class="fa fa-fw fa-star text-lighting-yellow fa-lg"></i>
-                    Activeness
+                    <%= badge.display_name %>
                 </span>
             </span>
-
-            <span class="badge badge-gray-dark badge-outline">
-                <span>
-                    <i class="fa fa-fw fa-star text-lighting-yellow fa-lg"></i>
-                    Early Bird
-                </span>
-            </span>
+            <% }) %>
 
         </div>
     </div>

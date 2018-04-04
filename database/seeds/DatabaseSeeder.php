@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             $this->call(DefaultUsersSeeder::class);
             $this->call(DefaultGroupSeeder::class);
 
+            $this->call(DefaultBadgesSeeder::class);
+
             if ( config('app.env') != 'production' ) {
                 $this->call(SampleClassSeeder::class);
                 $this->call(SampleTaskSeeder::class);

@@ -6,6 +6,8 @@ let Profiles = (function () {
     function init() {
         profileCardTemplate = _.template($('#profile-card-template').html());
         initEvents();
+        
+        console.log(app.session);
     }
 
     function initEvents() {
@@ -28,6 +30,17 @@ let Profiles = (function () {
         $('.action-show-profile').click(function () {
             let username = $(this).data('username');
             loadProfile(username);
+        });
+
+        $(document).on('click', '#action-show-give-badge-modal', function () {
+            $('#give-badge-modal').modal('show');
+        });
+
+        $('#action-give-badge').click(function () {
+            let selectedBadge = $('#badge-select').val();
+            let activeUsername = $('#profile-card-data').data('username');
+
+            giveBadge(activeUsername, selectedBadge);
         });
     }
 
@@ -54,6 +67,20 @@ let Profiles = (function () {
             let profileCardHtml = profileCardTemplate(userData);
             $('#profile-card-container').html(profileCardHtml);
         });
+    }
+
+    function giveBadge(username, badgeId) {
+        let url = `${baseURL}/user/${username}/give-badge`;
+        let data = {badge_id: badgeId};
+
+        $.post(url, data, response => {
+            console.log(response);
+
+            $('#give-badge-modal').modal('hide');
+
+            loadProfile(username);
+        });
+
     }
 
     // Returns a function, that, as long as it continues to be invoked, will not
